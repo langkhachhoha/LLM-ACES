@@ -1,0 +1,27 @@
+{
+  "system": "population-growth-naive",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/population-growth-naive/population-growth-naive.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.23000000000000023)*((x0)**1)"
+  ],
+  "recon_nmse": 9.363108259465902e-31,
+  "gen_nmse": 9.332532479732951e-31,
+  "ood_nmse": 9.241134178272283e-31,
+  "recon_traj_nmse": 4.149050168334334e-11,
+  "gen_traj_nmse": 4.238415965579541e-11,
+  "ood_traj_nmse": 2.02018402448559e-10,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.45
+}

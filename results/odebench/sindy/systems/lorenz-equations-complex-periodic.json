@@ -1,0 +1,29 @@
+{
+  "system": "lorenz-equations-complex-periodic",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/lorenz-equations-complex-periodic/lorenz-equations-complex-periodic.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 0.03981071705534969,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-10.000000000000004)*((x0)**1) + (10.0)*((x1)**1)",
+    "(384.7834234037057) + (-2.4957546062170306)*((x0)**1) + (7.486839544706012)*((x1)**1) + (-5.22406506097255)*((x2)**1) + (0.7888251911881414)*((x0)**2) + (0.13432574776489695)*((x1)**2) + (-0.054897872321909916)*((x0)**3)",
+    "(-347.6771292805157) + (-27.70028785214487)*((x0)**1) + (0.3872924256529853)*((x1)**1) + (35.20379091261625)*((x2)**1) + (3.498469760349528)*((x0)**2) + (-0.362179154662828)*((x2)**2)"
+  ],
+  "recon_nmse": 0.04481648529235126,
+  "gen_nmse": 0.4064165046650054,
+  "ood_nmse": 2.0247923778149697,
+  "recon_traj_nmse": 0.06790744290237813,
+  "gen_traj_nmse": 0.11744140859173673,
+  "ood_traj_nmse": 0.20693921513281216,
+  "complexity": 54,
+  "parse_ok": true,
+  "train_time_s": 2.24
+}

@@ -1,0 +1,28 @@
+{
+  "system": "catalyzing-rna-molecules",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/catalyzing-rna-molecules/catalyzing-rna-molecules.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.03981071705534969,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.15519804858578087)*((x1)**1)",
+    "(0.2808574356999162)*((x1)**1)"
+  ],
+  "recon_nmse": 9.061612174711244e-08,
+  "gen_nmse": 3.6384646989084475,
+  "ood_nmse": 0.2257191708997568,
+  "recon_traj_nmse": 4.961757251492823e-11,
+  "gen_traj_nmse": 0.016180226063196055,
+  "ood_traj_nmse": 0.015353748135890674,
+  "complexity": 6,
+  "parse_ok": true,
+  "train_time_s": 0.89
+}

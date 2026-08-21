@@ -1,0 +1,27 @@
+{
+  "system": "language-death-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/language-death-model/language-death-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.3200000000000003) + (-0.6000000000000008)*((x0)**1)"
+  ],
+  "recon_nmse": 3.2928774223786777e-31,
+  "gen_nmse": 3.7525753009235847e-28,
+  "ood_nmse": 8.49571653904857e-30,
+  "recon_traj_nmse": 2.678317859100141e-11,
+  "gen_traj_nmse": 2.1051738266534456e-11,
+  "ood_traj_nmse": 7.1243895105285966e-12,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.58
+}

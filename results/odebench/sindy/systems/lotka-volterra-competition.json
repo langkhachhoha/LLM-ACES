@@ -1,0 +1,28 @@
+{
+  "system": "lotka-volterra-competition",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/lotka-volterra-competition/lotka-volterra-competition.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-1.1348172454111125) + (1.2158951447694675)*((x0)**1) + (2.5493333856102938)*((x1)**1) + (-1.6992638003043223)*((x0)**2) + (-1.4294357636525026)*((x1)**2)",
+    "(3.252278723055081)*((x1)**1) + (-2.4216842645470806)*((x1)**2)"
+  ],
+  "recon_nmse": 8.846600864322091e-05,
+  "gen_nmse": 0.19007238158133385,
+  "ood_nmse": 365.26687245955475,
+  "recon_traj_nmse": 1.7609520381161204e-05,
+  "gen_traj_nmse": 0.01668473832178436,
+  "ood_traj_nmse": 10000000000.0,
+  "complexity": 27,
+  "parse_ok": true,
+  "train_time_s": 1.37
+}

@@ -1,0 +1,27 @@
+{
+  "system": "autocatalysis",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/autocatalysis/autocatalysis.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.7973216059786379)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0028541893502927766,
+  "gen_nmse": 7.044419952561828,
+  "ood_nmse": 78.40097097196478,
+  "recon_traj_nmse": 0.010080074062200246,
+  "gen_traj_nmse": 1.746071411047786,
+  "ood_traj_nmse": 10000000000.0,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.39
+}

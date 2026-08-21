@@ -1,0 +1,68 @@
+{
+  "system": "rc-circuit",
+  "benchmark": "odebench",
+  "method": "qbc",
+  "data_path": "data/ode/rc-circuit/rc-circuit.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "queried_initial_conditions": [
+    [
+      0.2593449585639651
+    ],
+    [
+      0.06515800954440554
+    ]
+  ],
+  "n_oracle_queries": 3,
+  "final_train_size": 30,
+  "per_dim_val_nmse": [
+    2.847289521315748e-15
+  ],
+  "iterations": [
+    {
+      "iteration": 1,
+      "n_train": 20,
+      "equations": [
+        "x0*(-0.32587835)"
+      ],
+      "queried_ic": [
+        0.2593449585639651
+      ],
+      "acq_score": 3.657775251817173,
+      "wall_time_s": 10.91
+    },
+    {
+      "iteration": 2,
+      "n_train": 30,
+      "equations": [
+        "(x0 - 0.84)*(-0.36075038)"
+      ],
+      "queried_ic": [
+        0.06515800954440554
+      ],
+      "acq_score": 7.155171168347102,
+      "wall_time_s": 8.21
+    },
+    {
+      "iteration": 3,
+      "n_train": 30,
+      "equations": [
+        "(x0 - 1*0.84)*(-0.36075038)"
+      ],
+      "wall_time_s": 7.16
+    }
+  ],
+  "equations": [
+    "(x0 - 0.84)*(-0.36075038)"
+  ],
+  "recon_nmse": 2.8472895180695914e-15,
+  "gen_nmse": 2.847289489359976e-15,
+  "ood_nmse": 2.8472895018776237e-15,
+  "recon_traj_nmse": 3.586047068927324e-11,
+  "gen_traj_nmse": 3.2393842207918676e-11,
+  "ood_traj_nmse": 4.357792058149502e-10,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 26.29
+}

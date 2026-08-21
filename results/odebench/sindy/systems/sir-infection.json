@@ -1,0 +1,28 @@
+{
+  "system": "sir-infection",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/sir-infection/sir-infection.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 0.0001,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-2.8228306426860805)*((x0)**1) + (0.3357960720259729)*((x0)**2)",
+    "(2.1097113147560234)*((x0)**1) + (-0.23764241149068482)*((x0)**2)"
+  ],
+  "recon_nmse": 0.0015600231035707154,
+  "gen_nmse": 1.5243157532703477,
+  "ood_nmse": 0.6900212995679608,
+  "recon_traj_nmse": 3.151364713644771e-05,
+  "gen_traj_nmse": 10000000000.0,
+  "ood_traj_nmse": 2.4758650749190974,
+  "complexity": 18,
+  "parse_ok": true,
+  "train_time_s": 1.11
+}

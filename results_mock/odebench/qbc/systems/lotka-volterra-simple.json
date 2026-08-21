@@ -1,0 +1,77 @@
+{
+  "system": "lotka-volterra-simple",
+  "benchmark": "odebench",
+  "method": "qbc",
+  "data_path": "data/ode/lotka-volterra-simple/lotka-volterra-simple.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "queried_initial_conditions": [
+    [
+      0.45801083389749253,
+      0.15375535787413458
+    ],
+    [
+      2.5234853653464397,
+      1.696415222234049
+    ]
+  ],
+  "n_oracle_queries": 3,
+  "final_train_size": 30,
+  "per_dim_val_nmse": [
+    5.73055412872023e-16,
+    4.346396149108057e-15
+  ],
+  "iterations": [
+    {
+      "iteration": 1,
+      "n_train": 20,
+      "equations": [
+        "x0*(1.8400003 + x1*(-1.45))",
+        "x1*(x0*1.6200001 - 3.0)"
+      ],
+      "queried_ic": [
+        0.45801083389749253,
+        0.15375535787413458
+      ],
+      "acq_score": 0.03359403051025499,
+      "wall_time_s": 56.07
+    },
+    {
+      "iteration": 2,
+      "n_train": 30,
+      "equations": [
+        "x0*(x1 - 1*1.2688217)/(-0.68968946)",
+        "(x0 - 1.8518518)*x1*1.6200001"
+      ],
+      "queried_ic": [
+        2.5234853653464397,
+        1.696415222234049
+      ],
+      "acq_score": 0.49997622470837644,
+      "wall_time_s": 16.33
+    },
+    {
+      "iteration": 3,
+      "n_train": 30,
+      "equations": [
+        "x0*(1.2689656 - x1)*1.45",
+        "x1*(x0 - 1.8518518)*1.6200001"
+      ],
+      "wall_time_s": 15.89
+    }
+  ],
+  "equations": [
+    "x0*(1.2689656 - x1)*1.45",
+    "(x0 - 1.8518518)*x1*1.6200001"
+  ],
+  "recon_nmse": 2.448839533215718e-15,
+  "gen_nmse": 4.896666042997556e-15,
+  "ood_nmse": 3.1443795795950096e-15,
+  "recon_traj_nmse": 8.268483694154301e-12,
+  "gen_traj_nmse": 1.2635625797439415e-11,
+  "ood_traj_nmse": 6.955869736921356e-10,
+  "complexity": 14,
+  "parse_ok": true,
+  "train_time_s": 89.25
+}

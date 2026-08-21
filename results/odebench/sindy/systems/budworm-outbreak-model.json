@@ -1,0 +1,27 @@
+{
+  "system": "budworm-outbreak-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/budworm-outbreak-model/budworm-outbreak-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.013593563908785269,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.7286943696219085)*((x0)**1)"
+  ],
+  "recon_nmse": 0.000176765473095229,
+  "gen_nmse": 0.34541279940202035,
+  "ood_nmse": 14.018086083622324,
+  "recon_traj_nmse": 3.0005170152155066e-05,
+  "gen_traj_nmse": 0.030324924608627752,
+  "ood_traj_nmse": 388.2377325386081,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.41
+}

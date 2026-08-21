@@ -1,0 +1,27 @@
+{
+  "system": "refined-language-death-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/refined-language-death-model/refined-language-death-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-0.32851528927083856) + (0.33301236374552845)*((x0)**1)"
+  ],
+  "recon_nmse": 8.232351945004761e-07,
+  "gen_nmse": 0.9941922913374496,
+  "ood_nmse": 3.8557299118357022,
+  "recon_traj_nmse": 2.519785057130703e-10,
+  "gen_traj_nmse": 0.06499418250559955,
+  "ood_traj_nmse": 8.845455188032018,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.42
+}

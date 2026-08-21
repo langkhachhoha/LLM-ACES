@@ -34,12 +34,28 @@ def _resolve_user_path(raw: str | None) -> Path | None:
     return (Path.cwd() / p).resolve()
 
 
+def _load_dotenv() -> None:
+    """Populate os.environ from the repo-root .env (never overrides real env vars)."""
+    env_path = _LLMACES_ROOT / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
 def _preflight_api_env(provider: str) -> None:
     provider = (provider or "").lower().strip()
-    if provider == "openai":
-        if not (os.environ.get("OPENAI_API_KEY") or os.environ.get("API_KEY")):
+    _load_dotenv()
+    if provider in {"openai", "openrouter"}:
+        if not (os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
+                or os.environ.get("API_KEY")):
             raise EnvironmentError(
-                "Missing OpenAI credentials. Set OPENAI_API_KEY (preferred) or API_KEY."
+                "Missing LLM credentials. Set OPENAI_API_KEY (an OpenRouter key works) "
+                "in .env or the environment."
             )
     elif provider == "azure":
         if not (os.environ.get("AZURE_OPENAI_API_KEY") or os.environ.get("AZURE_API_KEY")):
@@ -52,7 +68,9 @@ def _preflight_api_env(provider: str) -> None:
                 "e.g. 'https://<resource>.openai.azure.com/'."
             )
     else:
-        raise ValueError(f"Unsupported --api_provider {provider!r} (use 'openai' or 'azure').")
+        raise ValueError(
+            f"Unsupported --api_provider {provider!r} (use 'openai', 'openrouter' or 'azure')."
+        )
 
 # Keep PySR/BLAS/Julia from oversubscribing shared machines by default.
 for _thread_var in (
@@ -96,7 +114,8 @@ parser.add_argument("--log_path", type=str, default=None)
 parser.add_argument("--n_iterations", type=int, default=10)
 parser.add_argument("--n_init", type=int, default=30)
 parser.add_argument("--use_api", type=lambda x: x.lower() == "true", default=False)
-parser.add_argument("--api_provider", type=str, choices=["openai", "azure"], default="openai")
+parser.add_argument("--api_provider", type=str, choices=["openai", "openrouter", "azure"],
+                    default="openai")
 parser.add_argument("--api_model", type=str, default="gpt-4o-mini")
 parser.add_argument("--azure_api_version", type=str, default=None)
 parser.add_argument("--seed", type=int, default=42)
@@ -984,11 +1003,14 @@ def main() -> None:
         val   = _subset(early_idx[1::2])
 
     import json
-    _ic_bounds_path = _HERE / "ic_bounds.json"
+    ic_bounds_db: dict = {}
+    for _bounds_name in ("ic_bounds.json", "ic_bounds_odebase.json"):
+        _ic_bounds_path = _HERE / _bounds_name
+        if _ic_bounds_path.exists():
+            with open(_ic_bounds_path, encoding="utf-8") as f:
+                ic_bounds_db.update(json.load(f))
     ic_bounds_per_dim: list[list[float]] | None = None
-    if _ic_bounds_path.exists():
-        with open(_ic_bounds_path, encoding="utf-8") as f:
-            ic_bounds_db = json.load(f)
+    if ic_bounds_db:
         if system_name in ic_bounds_db:
             ic_bounds_per_dim = ic_bounds_db[system_name]
             print(f"IC bounds : {ic_bounds_per_dim}")

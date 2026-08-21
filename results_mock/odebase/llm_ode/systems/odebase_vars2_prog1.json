@@ -1,0 +1,27 @@
+{
+  "system": "odebase_vars2_prog1",
+  "benchmark": "odebase",
+  "method": "llm_ode",
+  "data_path": "data/odebase/odebase_vars2_prog1/odebase_vars2_prog1.npz",
+  "status": "ok",
+  "error": "",
+  "model": "openai/gpt-4o-mini-2024-07-18",
+  "dim": 2,
+  "llm_calls": 8,
+  "n_iterations": 2,
+  "prompt_tokens": 1282,
+  "completion_tokens": 421,
+  "equations": [
+    "1.0*(x_0 + x_1)**1.0*sin(1.0*x_1)",
+    "1.1999999997937087493 - 1.000000007443168526*x_0"
+  ],
+  "recon_nmse": 0.994661109661474,
+  "gen_nmse": 2.069786658195371,
+  "ood_nmse": 1.385384504839481,
+  "recon_traj_nmse": 2.794887077268673,
+  "gen_traj_nmse": 1.7850457581630939,
+  "ood_traj_nmse": 9.924077915207949,
+  "complexity": 16,
+  "parse_ok": true,
+  "train_time_s": 13.46
+}

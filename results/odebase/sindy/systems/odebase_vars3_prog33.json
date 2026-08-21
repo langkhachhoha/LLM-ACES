@@ -1,0 +1,29 @@
+{
+  "system": "odebase_vars3_prog33",
+  "benchmark": "odebase",
+  "method": "sindy",
+  "data_path": "data/odebase/odebase_vars3_prog33/odebase_vars3_prog33.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.0228516550873448)*((x1)**1)",
+    "0",
+    "(0.9)*((x0)**1) + (-1.7999999999999992)*((x2)**1)"
+  ],
+  "recon_nmse": 0.014564990695648329,
+  "gen_nmse": 1.6175561549213878e-06,
+  "ood_nmse": 0.04130293895573278,
+  "recon_traj_nmse": 0.001652022264117714,
+  "gen_traj_nmse": 1.3104083855917849e-06,
+  "ood_traj_nmse": 0.29013935879656455,
+  "complexity": 11,
+  "parse_ok": true,
+  "train_time_s": 2.23
+}

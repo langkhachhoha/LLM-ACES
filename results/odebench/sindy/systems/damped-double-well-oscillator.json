@@ -1,0 +1,28 @@
+{
+  "system": "damped-double-well-oscillator",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/damped-double-well-oscillator/damped-double-well-oscillator.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.0)*((x1)**1)",
+    "(1.508420979268157)*((x0)**1) + (-1.1252143104558026)*((x0)**3)"
+  ],
+  "recon_nmse": 0.0011807887994689994,
+  "gen_nmse": 0.014148584400769612,
+  "ood_nmse": 0.040197306184246905,
+  "recon_traj_nmse": 0.00047446976813718655,
+  "gen_traj_nmse": 0.06229636451917755,
+  "ood_traj_nmse": 2.2673629607431147,
+  "complexity": 12,
+  "parse_ok": true,
+  "train_time_s": 0.87
+}

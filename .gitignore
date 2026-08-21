@@ -2,9 +2,17 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-logs/
+/logs/
 *.log
 *.jsonl
 .env
-data/
-outputs/
+/data/
+/outputs/
+
+# reproduction harness
+third_party/
+# keep everything under results/ (per-system JSON, run logs, LLM transcripts)
+!results/
+!results/**
+odeformer.pt
+model.pt

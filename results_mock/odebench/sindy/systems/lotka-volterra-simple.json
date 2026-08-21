@@ -1,0 +1,28 @@
+{
+  "system": "lotka-volterra-simple",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/lotka-volterra-simple/lotka-volterra-simple.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 1.0,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.5379602589781578) + (-14.868992908481186)*((x0)**1) + (1.3451501265696193)*((x0)**2)",
+    "(20.51396828896479)*((x0)**1) + (-3.5512272891916723)*((x1)**1) + (-1.7423545751912273)*((x0)**2)"
+  ],
+  "recon_nmse": 0.002801710790982094,
+  "gen_nmse": 168.47234920325204,
+  "ood_nmse": 6.630127276970615,
+  "recon_traj_nmse": 0.000558943698155226,
+  "gen_traj_nmse": 0.925000487797171,
+  "ood_traj_nmse": 0.9089268559387867,
+  "complexity": 22,
+  "parse_ok": true,
+  "train_time_s": 2.95
+}

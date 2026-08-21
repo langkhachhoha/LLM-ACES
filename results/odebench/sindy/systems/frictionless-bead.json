@@ -1,0 +1,28 @@
+{
+  "system": "frictionless-bead",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/frictionless-bead/frictionless-bead.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.9999999999999996)*((x1)**1)",
+    "(-0.6070720907914943)*((x0)**1)"
+  ],
+  "recon_nmse": 0.00038886228587215615,
+  "gen_nmse": 0.12006301927113631,
+  "ood_nmse": 0.015458210447493253,
+  "recon_traj_nmse": 7.559914103892313e-06,
+  "gen_traj_nmse": 0.008316862823918966,
+  "ood_traj_nmse": 0.02962584460288418,
+  "complexity": 6,
+  "parse_ok": true,
+  "train_time_s": 1.54
+}

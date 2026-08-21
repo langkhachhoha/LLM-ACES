@@ -1,0 +1,27 @@
+{
+  "system": "landau-equation",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/landau-equation/landau-equation.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.13991776276400067)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0005068583713122968,
+  "gen_nmse": 0.14970705120317557,
+  "ood_nmse": 0.6403644275558376,
+  "recon_traj_nmse": 1.237867032910584e-06,
+  "gen_traj_nmse": 0.002179175476148022,
+  "ood_traj_nmse": 0.23141850226319066,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.61
+}

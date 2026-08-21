@@ -1,0 +1,27 @@
+{
+  "system": "logistic-equation-allee-effect",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/logistic-equation-allee-effect/logistic-equation-allee-effect.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.3618925950533265)"
+  ],
+  "recon_nmse": 0.005085710488320664,
+  "gen_nmse": 11.582821986374878,
+  "ood_nmse": 0.9834378935522158,
+  "recon_traj_nmse": 1.6389003256017857e-06,
+  "gen_traj_nmse": 0.021470711075800043,
+  "ood_traj_nmse": 0.6120805721500759,
+  "complexity": 1,
+  "parse_ok": true,
+  "train_time_s": 0.64
+}

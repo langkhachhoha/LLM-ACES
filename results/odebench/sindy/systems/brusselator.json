@@ -1,0 +1,28 @@
+{
+  "system": "brusselator",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/brusselator/brusselator.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.033549255693353) + (-3.22980024518555)*((x0)**1) + (-5.456696063705128)*((x0)**2)",
+    "(2.0447376871173435)*((x0)**1) + (5.675844342969802)*((x0)**2)"
+  ],
+  "recon_nmse": 0.0002451725361856519,
+  "gen_nmse": 165.54596255539005,
+  "ood_nmse": 243.3729648523812,
+  "recon_traj_nmse": 1.2007659870515924e-05,
+  "gen_traj_nmse": 2.1092103966574034,
+  "ood_traj_nmse": 5.1341343193898155,
+  "complexity": 19,
+  "parse_ok": true,
+  "train_time_s": 0.96
+}

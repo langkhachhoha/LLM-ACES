@@ -1,0 +1,28 @@
+{
+  "system": "cell-cycle-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/cell-cycle-model/cell-cycle-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-2.5233789812865295)*((x0)**1) + (3.6134002566344545)*((x1)**1) + (6.315483099334865)*((x0)**2) + (-16.46527696209902)*((x1)**2) + (-15.495909972806787)*((x0)**3) + (22.40389011311701)*((x1)**3)",
+    "(0.3) + (-0.9999999999999999)*((x0)**1)"
+  ],
+  "recon_nmse": 2.3687603191554103e-09,
+  "gen_nmse": 11926.85901312115,
+  "ood_nmse": 156.24135725353364,
+  "recon_traj_nmse": 1.1635267247124624e-10,
+  "gen_traj_nmse": 0.4926594748872922,
+  "ood_traj_nmse": 0.2126350538595756,
+  "complexity": 32,
+  "parse_ok": true,
+  "train_time_s": 1.19
+}

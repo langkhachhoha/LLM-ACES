@@ -1,0 +1,26 @@
+{
+  "system": "odebase_vars2_prog1",
+  "benchmark": "odebase",
+  "method": "apps_ode",
+  "data_path": "data/odebase/odebase_vars2_prog1/odebase_vars2_prog1.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "from_topk": false,
+  "scibench_equation": "odebase_vars2_prog1",
+  "best_reward": 0.5129808979222039,
+  "apps_ode_seconds": 91.24,
+  "equations": [
+    "0.7736982237480708*sin(X1) + 0.8582268076660046*cos(X0)",
+    "exp(X1)"
+  ],
+  "recon_nmse": 1.2221485902947273,
+  "gen_nmse": 3.2840875730916648,
+  "ood_nmse": 2.2587428783279555,
+  "recon_traj_nmse": 10000000000.0,
+  "gen_traj_nmse": 10000000000.0,
+  "ood_traj_nmse": 10000000000.0,
+  "complexity": 11,
+  "parse_ok": true,
+  "train_time_s": 156.74
+}

@@ -160,6 +160,32 @@ Results are written to `logs/` (per-iteration JSONL) and `outputs/` (best equati
 
 ---
 
+## 🔁 Full paper reproduction (baselines + tables)
+
+This checkout also contains a complete reproduction harness for **every method in
+Tables 2 and 3** of the paper — SINDy, PySR, Operon, ODEFormer, E2E, LLM-only,
+LLM-ODE, APPS-ODE, Query-by-Committee, Bayesian Optimization and LLM-ACES itself
+with both LLM backbones — all scored by one shared evaluator into `results/`.
+
+* **[SETUP_SERVER.md](SETUP_SERVER.md)** — conda, environments, data generation,
+  third-party checkouts, and how the numbers are computed.
+* **[RUN_TMUX.md](RUN_TMUX.md)** — copy-paste tmux sessions for the full run.
+
+Everything lives in **one conda env** (`llm-aces`); activate it once and every
+command below just works.
+
+```bash
+conda activate llm-aces
+bash scripts/setup_third_party.sh          # fetch llm-ode, APPS-ODE, E2E, mdbench
+bash run_baseline.sh <method> <benchmark>  # one baseline
+bash scripts/tmux_run.sh <name> <command>  # same, in a tmux session that stays alive
+bash scripts/run_llm_aces.sh odebench openai/gpt-4o-mini-2024-07-18 gpt
+python -m baselines.symbolic_accuracy --benchmark odebench
+python -m baselines.aggregate_results  --benchmark odebench
+```
+
+---
+
 ## 📚 Citation
 
 ```bibtex

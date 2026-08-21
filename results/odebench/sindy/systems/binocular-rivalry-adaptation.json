@@ -1,0 +1,30 @@
+{
+  "system": "binocular-rivalry-adaptation",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/binocular-rivalry-adaptation/binocular-rivalry-adaptation.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 4,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(7.422569952199295) + (-3.8618727637888446)*((x0)**1) + (-3.8906725738319987)*((x1)**1) + (0.30189428042034666)*((x2)**1) + (-4.1408413539262545)*((x3)**1)",
+    "(1.0000000000000009)*((x0)**1) + (-1.0000000000000009)*((x1)**1)",
+    "(0.5915954372577007)*((x0)**1)",
+    "(1.0000000000000004)*((x2)**1) + (-1.0000000000000004)*((x3)**1)"
+  ],
+  "recon_nmse": 0.0010844839534883413,
+  "gen_nmse": 20.35754675963666,
+  "ood_nmse": 1.61141928880559,
+  "recon_traj_nmse": 0.0001002605970757719,
+  "gen_traj_nmse": 2.4815284805557782,
+  "ood_traj_nmse": 1.005086822335391,
+  "complexity": 31,
+  "parse_ok": true,
+  "train_time_s": 2.32
+}

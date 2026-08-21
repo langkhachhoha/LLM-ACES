@@ -1,0 +1,29 @@
+{
+  "system": "r\u00f6ssler-attractor-chaotic",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/r\u00f6ssler-attractor-chaotic/r\u00f6ssler-attractor-chaotic.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 0.03981071705534969,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-5.0)*((x1)**1) + (-5.000000000000003)*((x2)**1)",
+    "(5.000000000000002)*((x0)**1) + (1.0000000000000002)*((x1)**1)",
+    "(0.5505107338801754) + (0.05905091910965243)*((x0)**1) + (-0.04600584401331759)*((x1)**1) + (-17.30241804678569)*((x2)**1)"
+  ],
+  "recon_nmse": 7.899204777608314e-05,
+  "gen_nmse": 0.02527314967477858,
+  "ood_nmse": 1.3738803135944633,
+  "recon_traj_nmse": 8.016000076691335e-06,
+  "gen_traj_nmse": 0.00422954985352902,
+  "ood_traj_nmse": 259.76259696110594,
+  "complexity": 25,
+  "parse_ok": true,
+  "train_time_s": 1.38
+}

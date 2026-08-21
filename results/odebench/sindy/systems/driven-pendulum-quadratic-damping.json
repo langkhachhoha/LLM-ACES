@@ -1,0 +1,28 @@
+{
+  "system": "driven-pendulum-quadratic-damping",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/driven-pendulum-quadratic-damping/driven-pendulum-quadratic-damping.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.0000000000000002)*((x1)**1)",
+    "(1.992017701673257) + (-0.9077097814520421)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0002673447408752246,
+  "gen_nmse": 0.6016608046141184,
+  "ood_nmse": 14.948362641796924,
+  "recon_traj_nmse": 2.2204356069406146e-06,
+  "gen_traj_nmse": 0.19007998668344853,
+  "ood_traj_nmse": 0.6255812550235149,
+  "complexity": 8,
+  "parse_ok": true,
+  "train_time_s": 1.17
+}

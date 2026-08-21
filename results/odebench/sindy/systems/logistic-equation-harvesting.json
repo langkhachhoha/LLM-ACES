@@ -1,0 +1,27 @@
+{
+  "system": "logistic-equation-harvesting",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/logistic-equation-harvesting/logistic-equation-harvesting.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.03981071705534969,
+    "alpha": 0.0001,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.3138799947408777)*((x0)**1)"
+  ],
+  "recon_nmse": 0.00020793471076403582,
+  "gen_nmse": 0.11067062899178827,
+  "ood_nmse": 2.6640984884954944,
+  "recon_traj_nmse": 3.3660862420718624e-06,
+  "gen_traj_nmse": 0.0020972435355761983,
+  "ood_traj_nmse": 1.9814423527684883,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.59
+}

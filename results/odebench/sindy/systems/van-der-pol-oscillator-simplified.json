@@ -1,0 +1,28 @@
+{
+  "system": "van-der-pol-oscillator-simplified",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/van-der-pol-oscillator-simplified/van-der-pol-oscillator-simplified.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(3.3700000000001276)*((x0)**1) + (3.3700000000004504)*((x1)**1) + (1.3060392540838094e-12)*((x1)**2) + (-1.123333333333303)*((x0)**3) + (1.1734699607685337e-12)*((x1)**3)",
+    "(-0.29673590504449987)*((x0)**1)"
+  ],
+  "recon_nmse": 2.8858269981235675e-26,
+  "gen_nmse": 6.821196301317321e-26,
+  "ood_nmse": 5.471758794617901e-25,
+  "recon_traj_nmse": 4.597282649618427e-15,
+  "gen_traj_nmse": 2.005478718606751e-12,
+  "ood_traj_nmse": 1.3042714646585902e-11,
+  "complexity": 25,
+  "parse_ok": true,
+  "train_time_s": 0.88
+}

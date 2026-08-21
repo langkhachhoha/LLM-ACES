@@ -1,0 +1,27 @@
+{
+  "system": "naive-critical-slowing-down",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/naive-critical-slowing-down/naive-critical-slowing-down.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-0.9999999999999997)*((x0)**3)"
+  ],
+  "recon_nmse": 1.2949799315804051e-31,
+  "gen_nmse": 1.260261153806811e-31,
+  "ood_nmse": 1.3107384295475171e-31,
+  "recon_traj_nmse": 4.448393518675072e-11,
+  "gen_traj_nmse": 9.549737931022063e-11,
+  "ood_traj_nmse": 2.525742732570018e-13,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.55
+}

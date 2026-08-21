@@ -1,0 +1,27 @@
+{
+  "system": "velocity-falling-object",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/velocity-falling-object/velocity-falling-object.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.004641588833612782,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(9.731540862139177)"
+  ],
+  "recon_nmse": 4.653525358174698e-05,
+  "gen_nmse": 74.52863225433316,
+  "ood_nmse": 0.6120532381545382,
+  "recon_traj_nmse": 1.1280154132732389e-05,
+  "gen_traj_nmse": 0.007815405219809347,
+  "ood_traj_nmse": 0.13951717018450238,
+  "complexity": 1,
+  "parse_ok": true,
+  "train_time_s": 0.4
+}

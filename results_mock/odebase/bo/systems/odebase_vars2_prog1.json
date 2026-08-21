@@ -1,0 +1,77 @@
+{
+  "system": "odebase_vars2_prog1",
+  "benchmark": "odebase",
+  "method": "bo",
+  "data_path": "data/odebase/odebase_vars2_prog1/odebase_vars2_prog1.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "queried_initial_conditions": [
+    [
+      6.701441806878278,
+      4.377147669534584
+    ],
+    [
+      3.439491699165288,
+      4.209613897337718
+    ]
+  ],
+  "n_oracle_queries": 3,
+  "final_train_size": 30,
+  "per_dim_val_nmse": [
+    0.0017410659145120429,
+    0.0
+  ],
+  "iterations": [
+    {
+      "iteration": 1,
+      "n_train": 20,
+      "equations": [
+        "x0**3",
+        "1.2 - x0"
+      ],
+      "queried_ic": [
+        6.701441806878278,
+        4.377147669534584
+      ],
+      "acq_score": 18.674910389028202,
+      "wall_time_s": 51.73
+    },
+    {
+      "iteration": 2,
+      "n_train": 30,
+      "equations": [
+        "x0**2*x1",
+        "1.2 - x0"
+      ],
+      "queried_ic": [
+        3.439491699165288,
+        4.209613897337718
+      ],
+      "acq_score": 0.0015514041884641385,
+      "wall_time_s": 14.27
+    },
+    {
+      "iteration": 3,
+      "n_train": 30,
+      "equations": [
+        "x0**2*x1",
+        "1.2 - x0"
+      ],
+      "wall_time_s": 11.82
+    }
+  ],
+  "equations": [
+    "x0**2*x1",
+    "1.2 - x0"
+  ],
+  "recon_nmse": 0.0001961757477637462,
+  "gen_nmse": 1.6073014917239712,
+  "ood_nmse": 1.0728761772446103,
+  "recon_traj_nmse": 10000000000.0,
+  "gen_traj_nmse": 2.448871285701412,
+  "ood_traj_nmse": 10000000000.0,
+  "complexity": 10,
+  "parse_ok": true,
+  "train_time_s": 78.83
+}

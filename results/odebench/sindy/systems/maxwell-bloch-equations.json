@@ -1,0 +1,29 @@
+{
+  "system": "maxwell-bloch-equations",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/maxwell-bloch-equations/maxwell-bloch-equations.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "0",
+    "(-0.2163164331619686)*((x1)**1) + (0.28076337033302323)*((x2)**1)",
+    "(2.482871667702807) + (-0.8121247165770173)*((x0)**1) + (-1.3864170030214664)*((x1)**1) + (-0.3571578663809225)*((x2)**1)"
+  ],
+  "recon_nmse": 0.0035846126050166145,
+  "gen_nmse": 1.5763302092672522,
+  "ood_nmse": 0.17923545783267952,
+  "recon_traj_nmse": 4.238554203604616e-05,
+  "gen_traj_nmse": 0.004713298378006029,
+  "ood_traj_nmse": 0.0231919129406632,
+  "complexity": 19,
+  "parse_ok": true,
+  "train_time_s": 1.67
+}

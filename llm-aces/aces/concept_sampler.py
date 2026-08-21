@@ -74,19 +74,51 @@ class ConceptLocalLLM:
         max_retries: int = 3,
     ) -> list[str]:
         provider = (getattr(config, "api_provider", None) or "openai").lower().strip()
-        if provider not in {"openai", "azure"}:
-            raise ValueError(f"Unsupported api_provider={provider!r}. Use 'openai' or 'azure'.")
+        if provider not in {"openai", "azure", "openrouter"}:
+            raise ValueError(
+                f"Unsupported api_provider={provider!r}. Use 'openai', 'openrouter' or 'azure'."
+            )
 
         all_samples: list[str] = []
         for _ in range(num_samples):
             last_exc: Exception | None = None
             for attempt in range(max_retries):
                 try:
-                    if provider == "openai":
-                        api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("API_KEY")
+                    if provider in {"openai", "openrouter"}:
+                        api_key = (
+                            os.environ.get("OPENROUTER_API_KEY")
+                            or os.environ.get("OPENAI_API_KEY")
+                            or os.environ.get("API_KEY")
+                        )
                         if not api_key:
-                            raise EnvironmentError("Neither OPENAI_API_KEY nor API_KEY is set.")
-                        conn = http.client.HTTPSConnection("api.openai.com")
+                            raise EnvironmentError(
+                                "None of OPENROUTER_API_KEY / OPENAI_API_KEY / API_KEY is set."
+                            )
+                        # Any OpenAI-compatible endpoint works; OPENAI_BASE_URL
+                        # (or OPENROUTER_BASE_URL) selects it. Defaults to
+                        # api.openai.com for "openai" and to OpenRouter for
+                        # "openrouter".
+                        default_base = (
+                            "https://openrouter.ai/api/v1"
+                            if provider == "openrouter"
+                            else "https://api.openai.com/v1"
+                        )
+                        base_url = (
+                            os.environ.get("OPENAI_BASE_URL")
+                            or os.environ.get("OPENROUTER_BASE_URL")
+                            or default_base
+                        ).rstrip("/")
+                        parsed = urlparse(base_url)
+                        if parsed.scheme not in {"https", "http"} or not parsed.netloc:
+                            raise ValueError(
+                                "OPENAI_BASE_URL must be a full URL, e.g. "
+                                "'https://openrouter.ai/api/v1'"
+                            )
+                        conn = (
+                            http.client.HTTPSConnection(parsed.netloc)
+                            if parsed.scheme == "https"
+                            else http.client.HTTPConnection(parsed.netloc)
+                        )
                         payload = json.dumps(
                             {
                                 "max_tokens": 1024,
@@ -99,8 +131,10 @@ class ConceptLocalLLM:
                             "Authorization": f"Bearer {api_key}",
                             "User-Agent": "aces",
                             "Content-Type": "application/json",
+                            "HTTP-Referer": "https://github.com/scientific-discovery/LLM-ACES",
+                            "X-Title": "LLM-ACES",
                         }
-                        path = "/v1/chat/completions"
+                        path = f"{parsed.path.rstrip('/')}/chat/completions"
                     else:
                         azure_key = os.environ.get("AZURE_OPENAI_API_KEY") or os.environ.get("AZURE_API_KEY")
                         azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT") or os.environ.get("AZURE_ENDPOINT")

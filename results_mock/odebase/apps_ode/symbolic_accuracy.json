@@ -1,0 +1,21 @@
+{
+  "n_systems": 1,
+  "symbolic_accuracy": 0.0,
+  "per_system": {
+    "odebase_vars2_prog1": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0 + x1*(x0 + 1)*(x0**2 + 1))/(x0 + 1)",
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "sin(x1) + cos(x0)",
+        "exp(x1)"
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "system": "glycolytic-oscillator",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/glycolytic-oscillator/glycolytic-oscillator.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 1.0,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(2.3463836261002844)*((x1)**1)",
+    "(-2.2302961428474712)*((x0)**1)"
+  ],
+  "recon_nmse": 0.11711344946343327,
+  "gen_nmse": 0.06889224384049439,
+  "ood_nmse": 0.20777237679977958,
+  "recon_traj_nmse": 0.24103253954326687,
+  "gen_traj_nmse": 0.07891964071154836,
+  "ood_traj_nmse": 26.302491526151524,
+  "complexity": 6,
+  "parse_ok": true,
+  "train_time_s": 1.48
+}

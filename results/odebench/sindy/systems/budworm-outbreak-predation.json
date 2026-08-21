@@ -1,0 +1,27 @@
+{
+  "system": "budworm-outbreak-predation",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/budworm-outbreak-predation/budworm-outbreak-predation.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.001584893192461114,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(8.89519102282087) + (-0.00875696895251147)*((x0)**1)"
+  ],
+  "recon_nmse": 7.364214732827099e-06,
+  "gen_nmse": 75.65999403506527,
+  "ood_nmse": 0.9665746769750032,
+  "recon_traj_nmse": 5.63068442251946e-09,
+  "gen_traj_nmse": 0.8706293110893442,
+  "ood_traj_nmse": 0.043421316022434125,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.39
+}

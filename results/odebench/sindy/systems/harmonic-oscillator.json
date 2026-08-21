@@ -1,0 +1,28 @@
+{
+  "system": "harmonic-oscillator",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/harmonic-oscillator/harmonic-oscillator.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(1.0000000000000002)*((x1)**1)",
+    "(-2.099999999999999)*((x0)**1)"
+  ],
+  "recon_nmse": 1.4393172327058914e-31,
+  "gen_nmse": 1.3811067626388606e-31,
+  "ood_nmse": 1.3707244168443038e-31,
+  "recon_traj_nmse": 4.4024873381851773e-14,
+  "gen_traj_nmse": 6.139200560912371e-14,
+  "ood_traj_nmse": 2.448898415767418e-10,
+  "complexity": 6,
+  "parse_ok": true,
+  "train_time_s": 1.18
+}

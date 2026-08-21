@@ -1,0 +1,28 @@
+{
+  "system": "rotational-dynamics",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/rotational-dynamics/rotational-dynamics.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 4,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-9.704298462097656) + (-9.967046248259564)*((x1)**1) + (8.345214265494025)*((x0)**2) + (-12.60500158447563)*((x1)**2) + (-7.539949282425656)*((x1)**3) + (-2.6869283244869275)*((x0)**4) + (-1.7156799164559124)*((x1)**4)",
+    "(0.9551157963181628)*((x0)**1) + (-2.6115148038559335)*((x1)**2) + (-0.841560170088513)*((x1)**3)"
+  ],
+  "recon_nmse": 0.0007064852967101874,
+  "gen_nmse": 53526.260693217155,
+  "ood_nmse": 12.044787933478695,
+  "recon_traj_nmse": 0.004490655331619302,
+  "gen_traj_nmse": 10000000000.0,
+  "ood_traj_nmse": 10000000000.0,
+  "complexity": 44,
+  "parse_ok": true,
+  "train_time_s": 1.13
+}

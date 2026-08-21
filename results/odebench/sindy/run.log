@@ -1,0 +1,320 @@
+2026-08-21 23:39:22,618 INFO SINDy on odebench: 63 systems -> /private/tmp/claude-501/-Users-apple-LLM-ACES/7c1f86e6-69ca-4cf0-b984-e13058e0b4f7/scratchpad/full/odebench/sindy
+2026-08-21 23:39:22,618 INFO [1/63] RUN  aizawa-attractor
+2026-08-21 23:39:25,623 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:25,656 INFO     aizawa-attractor: recon=1.070e-03 gen=2.766e-01 ood=6.168e-01 complexity=14
+2026-08-21 23:39:25,656 INFO       dx0/dt = (-3.574759698738166)*((x1)**1)
+2026-08-21 23:39:25,656 INFO       dx1/dt = (3.4255502000022204)*((x0)**1)
+2026-08-21 23:39:25,656 INFO       dx2/dt = (1.0113595742202397) + (-2.4726671441824752)*((x0)**1) + (-1.0519365123322286)*((x1)**1)
+2026-08-21 23:39:25,657 INFO [2/63] RUN  apoptosis-model
+2026-08-21 23:39:27,116 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 4, 'basis': 'polynomial'}
+2026-08-21 23:39:27,132 INFO     apoptosis-model: recon=8.642e-03 gen=2.238e+00 ood=1.912e+01 complexity=19
+2026-08-21 23:39:27,132 INFO       dx0/dt = 0
+2026-08-21 23:39:27,132 INFO       dx1/dt = (1.3690865598257016)*((x1)**1) + (-0.9069716390248531)*((x1)**2)
+2026-08-21 23:39:27,132 INFO       dx2/dt = (-1.3690865598257016)*((x1)**1) + (0.9069716390248531)*((x1)**2)
+2026-08-21 23:39:27,133 INFO [3/63] RUN  autocatalysis
+2026-08-21 23:39:27,512 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:27,522 INFO     autocatalysis: recon=2.854e-03 gen=7.044e+00 ood=7.840e+01 complexity=3
+2026-08-21 23:39:27,522 INFO       dx0/dt = (1.7973216059786379)*((x0)**1)
+2026-08-21 23:39:27,522 INFO [4/63] RUN  autocatalytic-gene-switching
+2026-08-21 23:39:27,918 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:27,924 INFO     autocatalytic-gene-switching: recon=3.364e-05 gen=4.463e+00 ood=1.928e+00 complexity=5
+2026-08-21 23:39:27,925 INFO       dx0/dt = (0.09874559976278771) + (-0.46599473740262537)*((x0)**1)
+2026-08-21 23:39:27,925 INFO [5/63] RUN  bacterial-respiration-model
+2026-08-21 23:39:28,894 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:28,914 INFO     bacterial-respiration-model: recon=2.210e-03 gen=1.948e+03 ood=4.745e+03 complexity=16
+2026-08-21 23:39:28,914 INFO       dx0/dt = (58.445999159239896) + (-24.464203234007467)*((x0)**1) + (-1.3674879738430958)*((x1)**1)
+2026-08-21 23:39:28,914 INFO       dx1/dt = (51.375999159239896) + (-23.464203234007464)*((x0)**1) + (-1.3674879738430954)*((x1)**1)
+2026-08-21 23:39:28,915 INFO [6/63] RUN  binocular-rivalry-adaptation
+2026-08-21 23:39:31,211 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:31,236 INFO     binocular-rivalry-adaptation: recon=1.084e-03 gen=2.036e+01 ood=1.611e+00 complexity=31
+2026-08-21 23:39:31,236 INFO       dx0/dt = (7.422569952199295) + (-3.8618727637888446)*((x0)**1) + (-3.8906725738319987)*((x1)**1) + (0.30189428042034666)*((x2)**1) + (-4.1408413539262545)*((x3)**1)
+2026-08-21 23:39:31,236 INFO       dx1/dt = (1.0000000000000009)*((x0)**1) + (-1.0000000000000009)*((x1)**1)
+2026-08-21 23:39:31,236 INFO       dx2/dt = (0.5915954372577007)*((x0)**1)
+2026-08-21 23:39:31,236 INFO       dx3/dt = (1.0000000000000004)*((x2)**1) + (-1.0000000000000004)*((x3)**1)
+2026-08-21 23:39:31,237 INFO [7/63] RUN  binocular-rivalry-model
+2026-08-21 23:39:32,157 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 0.0001, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:32,170 INFO     binocular-rivalry-model: recon=1.324e-04 gen=2.851e+00 ood=2.397e+01 complexity=10
+2026-08-21 23:39:32,171 INFO       dx0/dt = (0.7044895984619357) + (-1.996468474748015)*((x1)**1)
+2026-08-21 23:39:32,171 INFO       dx1/dt = (0.6492918687229978) + (-1.8712659795495037)*((x1)**1)
+2026-08-21 23:39:32,171 INFO [8/63] RUN  brusselator
+2026-08-21 23:39:33,107 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:39:33,126 INFO     brusselator: recon=2.452e-04 gen=1.655e+02 ood=2.434e+02 complexity=19
+2026-08-21 23:39:33,126 INFO       dx0/dt = (1.033549255693353) + (-3.22980024518555)*((x0)**1) + (-5.456696063705128)*((x0)**2)
+2026-08-21 23:39:33,126 INFO       dx1/dt = (2.0447376871173435)*((x0)**1) + (5.675844342969802)*((x0)**2)
+2026-08-21 23:39:33,127 INFO [9/63] RUN  budworm-outbreak-model
+2026-08-21 23:39:33,526 INFO     best SINDy hyperparameters: {'threshold': 0.013593563908785269, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:39:33,534 INFO     budworm-outbreak-model: recon=1.768e-04 gen=3.454e-01 ood=1.402e+01 complexity=3
+2026-08-21 23:39:33,534 INFO       dx0/dt = (0.7286943696219085)*((x0)**1)
+2026-08-21 23:39:33,534 INFO [10/63] RUN  budworm-outbreak-predation
+2026-08-21 23:39:33,917 INFO     best SINDy hyperparameters: {'threshold': 0.001584893192461114, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:33,922 INFO     budworm-outbreak-predation: recon=7.364e-06 gen=7.566e+01 ood=9.666e-01 complexity=5
+2026-08-21 23:39:33,922 INFO       dx0/dt = (8.89519102282087) + (-0.00875696895251147)*((x0)**1)
+2026-08-21 23:39:33,922 INFO [11/63] RUN  catalyzing-rna-molecules
+2026-08-21 23:39:34,801 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:34,811 INFO     catalyzing-rna-molecules: recon=9.062e-08 gen=3.638e+00 ood=2.257e-01 complexity=6
+2026-08-21 23:39:34,811 INFO       dx0/dt = (0.15519804858578087)*((x1)**1)
+2026-08-21 23:39:34,811 INFO       dx1/dt = (0.2808574356999162)*((x1)**1)
+2026-08-21 23:39:34,812 INFO [12/63] RUN  cdima-reaction
+2026-08-21 23:39:35,765 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:35,777 INFO     cdima-reaction: recon=1.552e-03 gen=5.644e+00 ood=6.427e+00 complexity=8
+2026-08-21 23:39:35,777 INFO       dx0/dt = (8.88806923497186) + (-1.6042335080031038)*((x0)**1)
+2026-08-21 23:39:35,777 INFO       dx1/dt = (1.187297983938282)*((x0)**1)
+2026-08-21 23:39:35,777 INFO [13/63] RUN  cell-cycle-model
+2026-08-21 23:39:36,934 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:39:36,963 INFO     cell-cycle-model: recon=2.369e-09 gen=1.193e+04 ood=1.562e+02 complexity=32
+2026-08-21 23:39:36,963 INFO       dx0/dt = (-2.5233789812865295)*((x0)**1) + (3.6134002566344545)*((x1)**1) + (6.315483099334865)*((x0)**2) + (-16.46527696209902)*((x1)**2) + (-15.495909972806787)*((x0)**3) + (22.40389011311701)*((x1)**3)
+2026-08-21 23:39:36,963 INFO       dx1/dt = (0.3) + (-0.9999999999999999)*((x0)**1)
+2026-08-21 23:39:36,964 INFO [14/63] RUN  chen-lee-attractor
+2026-08-21 23:39:39,272 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:39,332 INFO     chen-lee-attractor: recon=8.809e-02 gen=2.390e-01 ood=3.074e-01 complexity=27
+2026-08-21 23:39:39,332 INFO       dx0/dt = (10.652357967558823) + (4.749942603558498)*((x0)**1) + (11.105622487797731)*((x1)**1) + (3.445150197039507)*((x2)**1)
+2026-08-21 23:39:39,332 INFO       dx1/dt = (22.64868994492172) + (-8.369477776136833)*((x0)**1) + (-9.014036465734014)*((x1)**1) + (3.041721506025582)*((x2)**1)
+2026-08-21 23:39:39,332 INFO       dx2/dt = (16.089178119745863) + (-1.3831580153685423)*((x1)**1)
+2026-08-21 23:39:39,333 INFO [15/63] RUN  damped-double-well-oscillator
+2026-08-21 23:39:40,167 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:39:40,203 INFO     damped-double-well-oscillator: recon=1.181e-03 gen=1.415e-02 ood=4.020e-02 complexity=12
+2026-08-21 23:39:40,203 INFO       dx0/dt = (1.0)*((x1)**1)
+2026-08-21 23:39:40,203 INFO       dx1/dt = (1.508420979268157)*((x0)**1) + (-1.1252143104558026)*((x0)**3)
+2026-08-21 23:39:40,204 INFO [16/63] RUN  dimensionally-reduced-sir
+2026-08-21 23:39:40,663 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:40,670 INFO     dimensionally-reduced-sir: recon=8.981e-05 gen=2.575e-01 ood=1.382e+01 complexity=5
+2026-08-21 23:39:40,670 INFO       dx0/dt = (0.20547922721961354) + (0.6710877615737846)*((x0)**1)
+2026-08-21 23:39:40,671 INFO [17/63] RUN  dipole-fixed-point
+2026-08-21 23:39:41,718 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:39:41,856 INFO     dipole-fixed-point: recon=1.582e-05 gen=3.084e+03 ood=5.120e+01 complexity=34
+2026-08-21 23:39:41,856 INFO       dx0/dt = (4.5659873184270925) + (-7.127709770699119)*((x0)**1) + (2.1154339943690164)*((x1)**1) + (88.76074644487511)*((x0)**2) + (-27.879991708366113)*((x1)**2) + (-25.511279845953286)*((x0)**3)
+2026-08-21 23:39:41,856 INFO       dx1/dt = (-1.0000000000000004)*((x0)**2) + (1.0)*((x1)**2)
+2026-08-21 23:39:41,857 INFO [18/63] RUN  driven-pendulum-linear-damping
+2026-08-21 23:39:43,147 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:43,165 INFO     driven-pendulum-linear-damping: recon=6.102e-06 gen=7.160e-01 ood=2.523e-01 complexity=8
+2026-08-21 23:39:43,165 INFO       dx0/dt = (1.0000000000000002)*((x1)**1)
+2026-08-21 23:39:43,165 INFO       dx1/dt = (0.6764818283464208) + (-0.6543593954099647)*((x1)**1)
+2026-08-21 23:39:43,166 INFO [19/63] RUN  driven-pendulum-quadratic-damping
+2026-08-21 23:39:44,319 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:44,337 INFO     driven-pendulum-quadratic-damping: recon=2.673e-04 gen=6.017e-01 ood=1.495e+01 complexity=8
+2026-08-21 23:39:44,337 INFO       dx0/dt = (1.0000000000000002)*((x1)**1)
+2026-08-21 23:39:44,337 INFO       dx1/dt = (1.992017701673257) + (-0.9077097814520421)*((x0)**1)
+2026-08-21 23:39:44,338 INFO [20/63] RUN  duffing-equation
+2026-08-21 23:39:45,451 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:45,458 INFO     duffing-equation: recon=6.998e-03 gen=6.526e+00 ood=8.417e-01 complexity=4
+2026-08-21 23:39:45,458 INFO       dx0/dt = (0.9999999999999999)*((x1)**1)
+2026-08-21 23:39:45,459 INFO       dx1/dt = (-0.7780418448598829)
+2026-08-21 23:39:45,459 INFO [21/63] RUN  frictionless-bead
+2026-08-21 23:39:46,977 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:39:46,995 INFO     frictionless-bead: recon=3.889e-04 gen=1.201e-01 ood=1.546e-02 complexity=6
+2026-08-21 23:39:46,995 INFO       dx0/dt = (0.9999999999999996)*((x1)**1)
+2026-08-21 23:39:46,995 INFO       dx1/dt = (-0.6070720907914943)*((x0)**1)
+2026-08-21 23:39:46,995 INFO [22/63] RUN  glider
+2026-08-21 23:39:48,347 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:39:48,402 INFO     glider: recon=8.529e-01 gen=1.155e+01 ood=1.183e+02 complexity=11
+2026-08-21 23:39:48,402 INFO       dx0/dt = (48.982946032376184) + (-22.33690963348042)*((x0)**1) + (2.409833803281554)*((x0)**2)
+2026-08-21 23:39:48,402 INFO       dx1/dt = 0
+2026-08-21 23:39:48,402 INFO [23/63] RUN  glycolytic-oscillator
+2026-08-21 23:39:49,851 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:49,885 INFO     glycolytic-oscillator: recon=1.171e-01 gen=6.889e-02 ood=2.078e-01 complexity=6
+2026-08-21 23:39:49,885 INFO       dx0/dt = (2.3463836261002844)*((x1)**1)
+2026-08-21 23:39:49,885 INFO       dx1/dt = (-2.2302961428474712)*((x0)**1)
+2026-08-21 23:39:49,886 INFO [24/63] RUN  gompertz-law-tumor-growth
+2026-08-21 23:39:50,545 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:50,553 INFO     gompertz-law-tumor-growth: recon=2.964e-09 gen=8.435e-02 ood=1.058e-03 complexity=5
+2026-08-21 23:39:50,553 INFO       dx0/dt = (-0.056613433288989885) + (0.07677271677532228)*((x0)**1)
+2026-08-21 23:39:50,554 INFO [25/63] RUN  gray-scott-model
+2026-08-21 23:39:51,910 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 0.0001, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:51,924 INFO     gray-scott-model: recon=9.940e-05 gen=2.009e-01 ood=2.827e+00 complexity=11
+2026-08-21 23:39:51,924 INFO       dx0/dt = (0.6104341966410748) + (-0.5403574611605837)*((x0)**1) + (-0.5499252975992625)*((x1)**1)
+2026-08-21 23:39:51,924 INFO       dx1/dt = (0.27596712909089816)*((x1)**1)
+2026-08-21 23:39:51,925 INFO [26/63] RUN  harmonic-oscillator
+2026-08-21 23:39:53,077 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:53,108 INFO     harmonic-oscillator: recon=1.439e-31 gen=1.381e-31 ood=1.371e-31 complexity=6
+2026-08-21 23:39:53,108 INFO       dx0/dt = (1.0000000000000002)*((x1)**1)
+2026-08-21 23:39:53,108 INFO       dx1/dt = (-2.099999999999999)*((x0)**1)
+2026-08-21 23:39:53,109 INFO [27/63] RUN  harmonic-oscillator-damping
+2026-08-21 23:39:54,485 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:54,510 INFO     harmonic-oscillator-damping: recon=1.657e-31 gen=1.348e-31 ood=1.411e-31 complexity=10
+2026-08-21 23:39:54,510 INFO       dx0/dt = (0.9999999999999998)*((x1)**1)
+2026-08-21 23:39:54,510 INFO       dx1/dt = (-4.499999999999998)*((x0)**1) + (-0.43)*((x1)**1)
+2026-08-21 23:39:54,511 INFO [28/63] RUN  improved-logistic-equation-harvesting
+2026-08-21 23:39:55,167 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:55,172 INFO     improved-logistic-equation-harvesting: recon=3.401e-03 gen=6.520e-02 ood=1.065e-01 complexity=1
+2026-08-21 23:39:55,172 INFO       dx0/dt = (7.330919663596813)
+2026-08-21 23:39:55,172 INFO [29/63] RUN  improved-logistic-equation-harvesting-dimensionless
+2026-08-21 23:39:55,778 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:55,788 INFO     improved-logistic-equation-harvesting-dimensionless: recon=2.591e-03 gen=2.785e-02 ood=2.397e+01 complexity=3
+2026-08-21 23:39:55,788 INFO       dx0/dt = (0.7108847403466646)*((x0)**1)
+2026-08-21 23:39:55,788 INFO [30/63] RUN  interacting-bar-magnets
+2026-08-21 23:39:56,849 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:39:56,858 INFO     interacting-bar-magnets: recon=4.412e-02 gen=8.245e-01 ood=1.672e-01 complexity=4
+2026-08-21 23:39:56,858 INFO       dx0/dt = (-0.5614597175779872)*((x0)**1)
+2026-08-21 23:39:56,858 INFO       dx1/dt = 0
+2026-08-21 23:39:56,859 INFO [31/63] RUN  landau-equation
+2026-08-21 23:39:57,461 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:57,469 INFO     landau-equation: recon=5.069e-04 gen=1.497e-01 ood=6.404e-01 complexity=3
+2026-08-21 23:39:57,469 INFO       dx0/dt = (0.13991776276400067)*((x0)**1)
+2026-08-21 23:39:57,470 INFO [32/63] RUN  language-death-model
+2026-08-21 23:39:58,041 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:58,050 INFO     language-death-model: recon=3.293e-31 gen=3.753e-28 ood=8.496e-30 complexity=5
+2026-08-21 23:39:58,050 INFO       dx0/dt = (0.3200000000000003) + (-0.6000000000000008)*((x0)**1)
+2026-08-21 23:39:58,051 INFO [33/63] RUN  logistic-equation-allee-effect
+2026-08-21 23:39:58,688 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:39:58,693 INFO     logistic-equation-allee-effect: recon=5.086e-03 gen=1.158e+01 ood=9.834e-01 complexity=1
+2026-08-21 23:39:58,693 INFO       dx0/dt = (0.3618925950533265)
+2026-08-21 23:39:58,693 INFO [34/63] RUN  logistic-equation-harvesting
+2026-08-21 23:39:59,273 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 0.0001, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:39:59,282 INFO     logistic-equation-harvesting: recon=2.079e-04 gen=1.107e-01 ood=2.664e+00 complexity=3
+2026-08-21 23:39:59,282 INFO       dx0/dt = (0.3138799947408777)*((x0)**1)
+2026-08-21 23:39:59,283 INFO [35/63] RUN  lorenz-equations-chaotic
+2026-08-21 23:40:01,665 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:01,708 INFO     lorenz-equations-chaotic: recon=4.058e-01 gen=6.505e-01 ood=2.037e+00 complexity=29
+2026-08-21 23:40:01,708 INFO       dx0/dt = (-9.999999999999986)*((x0)**1) + (9.999999999999996)*((x1)**1)
+2026-08-21 23:40:01,709 INFO       dx1/dt = (-34.977344302973464) + (-18.753360358985972)*((x0)**1) + (13.473138156715214)*((x1)**1) + (1.889491827791961)*((x2)**1)
+2026-08-21 23:40:01,709 INFO       dx2/dt = (-78.24140790927794) + (-21.351134707254317)*((x0)**1) + (15.87004114742856)*((x1)**1) + (5.919440093155326)*((x2)**1)
+2026-08-21 23:40:01,709 INFO [36/63] RUN  lorenz-equations-complex-periodic
+2026-08-21 23:40:03,806 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:03,948 INFO     lorenz-equations-complex-periodic: recon=4.482e-02 gen=4.064e-01 ood=2.025e+00 complexity=54
+2026-08-21 23:40:03,949 INFO       dx0/dt = (-10.000000000000004)*((x0)**1) + (10.0)*((x1)**1)
+2026-08-21 23:40:03,949 INFO       dx1/dt = (384.7834234037057) + (-2.4957546062170306)*((x0)**1) + (7.486839544706012)*((x1)**1) + (-5.22406506097255)*((x2)**1) + (0.7888251911881414)*((x0)**2) + (0.13432574776489695)*((x1)**2) + (-0.054897872321909916)*((x0)**3)
+2026-08-21 23:40:03,949 INFO       dx2/dt = (-347.6771292805157) + (-27.70028785214487)*((x0)**1) + (0.3872924256529853)*((x1)**1) + (35.20379091261625)*((x2)**1) + (3.498469760349528)*((x0)**2) + (-0.362179154662828)*((x2)**2)
+2026-08-21 23:40:03,950 INFO [37/63] RUN  lorenz-equations-periodic
+2026-08-21 23:40:05,667 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 4, 'basis': 'polynomial'}
+2026-08-21 23:40:05,743 INFO     lorenz-equations-periodic: recon=5.863e-05 gen=2.130e+02 ood=3.034e+00 complexity=74
+2026-08-21 23:40:05,743 INFO       dx0/dt = (-5.099999999999992)*((x0)**1) + (5.099999999999994)*((x1)**1)
+2026-08-21 23:40:05,743 INFO       dx1/dt = (31.888073124232037) + (-40.26877377488364)*((x0)**1) + (-11.409048445924997)*((x1)**1) + (3.0702828782670437)*((x2)**1) + (10.03669847284887)*((x0)**2) + (6.673495342189168)*((x1)**2) + (-1.2385320373824993)*((x0)**3) + (-0.6955487554404781)*((x1)**3)
+2026-08-21 23:40:05,743 INFO       dx2/dt = (-62.53441492108068) + (48.75685089663529)*((x0)**1) + (7.916158621412811)*((x1)**1) + (3.444487893875752)*((x2)**1) + (-10.049055361247989)*((x0)**2) + (-5.764705780796002)*((x1)**2) + (-0.6148865341964049)*((x2)**2) + (1.2553208169169883)*((x0)**3) + (0.6621914964113432)*((x1)**3)
+2026-08-21 23:40:05,745 INFO [38/63] RUN  lotka-volterra-competition
+2026-08-21 23:40:07,061 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:07,111 INFO     lotka-volterra-competition: recon=8.847e-05 gen=1.901e-01 ood=3.653e+02 complexity=27
+2026-08-21 23:40:07,111 INFO       dx0/dt = (-1.1348172454111125) + (1.2158951447694675)*((x0)**1) + (2.5493333856102938)*((x1)**1) + (-1.6992638003043223)*((x0)**2) + (-1.4294357636525026)*((x1)**2)
+2026-08-21 23:40:07,111 INFO       dx1/dt = (3.252278723055081)*((x1)**1) + (-2.4216842645470806)*((x1)**2)
+2026-08-21 23:40:07,111 INFO [39/63] RUN  lotka-volterra-simple
+2026-08-21 23:40:08,109 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:40:08,139 INFO     lotka-volterra-simple: recon=2.802e-03 gen=1.685e+02 ood=6.630e+00 complexity=22
+2026-08-21 23:40:08,139 INFO       dx0/dt = (1.5379602589781578) + (-14.868992908481186)*((x0)**1) + (1.3451501265696193)*((x0)**2)
+2026-08-21 23:40:08,139 INFO       dx1/dt = (20.51396828896479)*((x0)**1) + (-3.5512272891916723)*((x1)**1) + (-1.7423545751912273)*((x0)**2)
+2026-08-21 23:40:08,140 INFO [40/63] RUN  maxwell-bloch-equations
+2026-08-21 23:40:09,791 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:09,808 INFO     maxwell-bloch-equations: recon=3.585e-03 gen=1.576e+00 ood=1.792e-01 complexity=19
+2026-08-21 23:40:09,808 INFO       dx0/dt = 0
+2026-08-21 23:40:09,808 INFO       dx1/dt = (-0.2163164331619686)*((x1)**1) + (0.28076337033302323)*((x2)**1)
+2026-08-21 23:40:09,808 INFO       dx2/dt = (2.482871667702807) + (-0.8121247165770173)*((x0)**1) + (-1.3864170030214664)*((x1)**1) + (-0.3571578663809225)*((x2)**1)
+2026-08-21 23:40:09,811 INFO [41/63] RUN  naive-critical-slowing-down
+2026-08-21 23:40:10,339 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:10,358 INFO     naive-critical-slowing-down: recon=1.295e-31 gen=1.260e-31 ood=1.311e-31 complexity=5
+2026-08-21 23:40:10,358 INFO       dx0/dt = (-0.9999999999999997)*((x0)**3)
+2026-08-21 23:40:10,358 INFO [42/63] RUN  oscillator-death-model
+2026-08-21 23:40:11,463 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:11,475 INFO     oscillator-death-model: recon=1.367e-05 gen=1.757e-01 ood=3.341e+01 complexity=10
+2026-08-21 23:40:11,475 INFO       dx0/dt = (2.0537604440774446) + (-1.468448303938339)*((x1)**1)
+2026-08-21 23:40:11,475 INFO       dx1/dt = (1.5937604440774447) + (-1.468448303938339)*((x1)**1)
+2026-08-21 23:40:11,476 INFO [43/63] RUN  overdamped-bead
+2026-08-21 23:40:11,903 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:11,911 INFO     overdamped-bead: recon=7.189e-07 gen=1.366e+00 ood=2.794e+01 complexity=5
+2026-08-21 23:40:11,911 INFO       dx0/dt = (-3.2595824472984005) + (1.0373750834978106)*((x0)**1)
+2026-08-21 23:40:11,911 INFO [44/63] RUN  overdamped-pendulum
+2026-08-21 23:40:12,347 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:12,355 INFO     overdamped-pendulum: recon=6.228e-04 gen=3.038e+01 ood=2.882e+01 complexity=5
+2026-08-21 23:40:12,355 INFO       dx0/dt = (2.440325733004447) + (0.657013298599413)*((x0)**1)
+2026-08-21 23:40:12,355 INFO [45/63] RUN  pendulum-non-linear-damping
+2026-08-21 23:40:13,187 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:13,201 INFO     pendulum-non-linear-damping: recon=1.835e-01 gen=3.758e+00 ood=2.841e+00 complexity=6
+2026-08-21 23:40:13,201 INFO       dx0/dt = (0.9999999999999999)*((x1)**1)
+2026-08-21 23:40:13,201 INFO       dx1/dt = (-2.032946858677195)*((x1)**1)
+2026-08-21 23:40:13,202 INFO [46/63] RUN  pendulum-without-friction
+2026-08-21 23:40:14,048 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:14,054 INFO     pendulum-without-friction: recon=3.088e-04 gen=3.078e+00 ood=7.857e-01 complexity=4
+2026-08-21 23:40:14,054 INFO       dx0/dt = (0.9999999999999992)*((x1)**1)
+2026-08-21 23:40:14,054 INFO       dx1/dt = (0.8771291651395909)
+2026-08-21 23:40:14,055 INFO [47/63] RUN  photons-in-a-laser
+2026-08-21 23:40:14,454 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:14,461 INFO     photons-in-a-laser: recon=1.054e-03 gen=6.677e+00 ood=5.935e+00 complexity=5
+2026-08-21 23:40:14,461 INFO       dx0/dt = (19.05858647474934) + (-1.1174379945130901)*((x0)**1)
+2026-08-21 23:40:14,462 INFO [48/63] RUN  population-growth-carrying-capacity
+2026-08-21 23:40:14,880 INFO     best SINDy hyperparameters: {'threshold': 0.013593563908785269, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:40:14,891 INFO     population-growth-carrying-capacity: recon=1.028e-03 gen=1.506e-01 ood=1.811e+01 complexity=3
+2026-08-21 23:40:14,891 INFO       dx0/dt = (0.6697447376614769)*((x0)**1)
+2026-08-21 23:40:14,891 INFO [49/63] RUN  population-growth-naive
+2026-08-21 23:40:15,333 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:15,339 INFO     population-growth-naive: recon=9.363e-31 gen=9.333e-31 ood=9.241e-31 complexity=3
+2026-08-21 23:40:15,340 INFO       dx0/dt = (0.23000000000000023)*((x0)**1)
+2026-08-21 23:40:15,340 INFO [50/63] RUN  protein-expression
+2026-08-21 23:40:15,769 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:15,776 INFO     protein-expression: recon=6.404e-06 gen=9.444e-03 ood=7.864e-03 complexity=5
+2026-08-21 23:40:15,776 INFO       dx0/dt = (1.1249453140430636) + (-0.709203784974837)*((x0)**1)
+2026-08-21 23:40:15,776 INFO [51/63] RUN  rc-circuit
+2026-08-21 23:40:16,140 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:16,146 INFO     rc-circuit: recon=1.470e-32 gen=3.172e-30 ood=3.385e-30 complexity=5
+2026-08-21 23:40:16,146 INFO       dx0/dt = (0.30303030303030065) + (-0.3607503607503607)*((x0)**1)
+2026-08-21 23:40:16,147 INFO [52/63] RUN  rc-circuit-non-linear-resistor
+2026-08-21 23:40:16,555 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:16,561 INFO     rc-circuit-non-linear-resistor: recon=3.082e-08 gen=8.016e-04 ood=1.298e-01 complexity=5
+2026-08-21 23:40:16,561 INFO       dx0/dt = (-0.11830888103337144) + (0.25114057691967556)*((x0)**1)
+2026-08-21 23:40:16,561 INFO [53/63] RUN  refined-language-death-model
+2026-08-21 23:40:16,979 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:16,985 INFO     refined-language-death-model: recon=8.232e-07 gen=9.942e-01 ood=3.856e+00 complexity=5
+2026-08-21 23:40:16,986 INFO       dx0/dt = (-0.32851528927083856) + (0.33301236374552845)*((x0)**1)
+2026-08-21 23:40:16,986 INFO [54/63] RUN  rotational-dynamics
+2026-08-21 23:40:17,954 INFO     best SINDy hyperparameters: {'threshold': 0.34145488738336005, 'alpha': 1e-05, 'poly_order': 4, 'basis': 'polynomial'}
+2026-08-21 23:40:18,116 INFO     rotational-dynamics: recon=7.065e-04 gen=5.353e+04 ood=1.204e+01 complexity=44
+2026-08-21 23:40:18,116 INFO       dx0/dt = (-9.704298462097656) + (-9.967046248259564)*((x1)**1) + (8.345214265494025)*((x0)**2) + (-12.60500158447563)*((x1)**2) + (-7.539949282425656)*((x1)**3) + (-2.6869283244869275)*((x0)**4) + (-1.7156799164559124)*((x1)**4)
+2026-08-21 23:40:18,117 INFO       dx1/dt = (0.9551157963181628)*((x0)**1) + (-2.6115148038559335)*((x1)**2) + (-0.841560170088513)*((x1)**3)
+2026-08-21 23:40:18,117 INFO [55/63] RUN  rössler-attractor-chaotic
+2026-08-21 23:40:19,438 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:19,494 INFO     rössler-attractor-chaotic: recon=7.899e-05 gen=2.527e-02 ood=1.374e+00 complexity=25
+2026-08-21 23:40:19,494 INFO       dx0/dt = (-5.0)*((x1)**1) + (-5.000000000000003)*((x2)**1)
+2026-08-21 23:40:19,494 INFO       dx1/dt = (5.000000000000002)*((x0)**1) + (1.0000000000000002)*((x1)**1)
+2026-08-21 23:40:19,494 INFO       dx2/dt = (0.5505107338801754) + (0.05905091910965243)*((x0)**1) + (-0.04600584401331759)*((x1)**1) + (-17.30241804678569)*((x2)**1)
+2026-08-21 23:40:19,495 INFO [56/63] RUN  rössler-attractor-periodic
+2026-08-21 23:40:20,815 INFO     best SINDy hyperparameters: {'threshold': 1.0, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:20,866 INFO     rössler-attractor-periodic: recon=6.685e-03 gen=4.197e-02 ood=1.857e-01 complexity=13
+2026-08-21 23:40:20,866 INFO       dx0/dt = (-4.999999999999999)*((x1)**1) + (-5.000000000000004)*((x2)**1)
+2026-08-21 23:40:20,866 INFO       dx1/dt = (4.986295791351015)*((x0)**1)
+2026-08-21 23:40:20,866 INFO       dx2/dt = (-15.492905244798184)*((x2)**1)
+2026-08-21 23:40:20,867 INFO [57/63] RUN  rössler-fixed-point
+2026-08-21 23:40:22,206 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:22,259 INFO     rössler-fixed-point: recon=1.757e-04 gen=4.750e-02 ood=2.305e-03 complexity=19
+2026-08-21 23:40:22,259 INFO       dx0/dt = (-5.000000000000005)*((x1)**1) + (-5.000000000000024)*((x2)**1)
+2026-08-21 23:40:22,259 INFO       dx1/dt = (4.999999999999996)*((x0)**1) + (-1.0)*((x1)**1)
+2026-08-21 23:40:22,259 INFO       dx2/dt = (0.5022921886468353) + (-17.092890755315214)*((x2)**1)
+2026-08-21 23:40:22,260 INFO [58/63] RUN  schnackenberg-model
+2026-08-21 23:40:23,171 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 0.0001, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:40:23,176 INFO     schnackenberg-model: recon=5.937e-03 gen=7.933e+00 ood=1.566e+00 complexity=2
+2026-08-21 23:40:23,176 INFO       dx0/dt = 0
+2026-08-21 23:40:23,176 INFO       dx1/dt = (1.377224647558795)
+2026-08-21 23:40:23,176 INFO [59/63] RUN  seir-infection
+2026-08-21 23:40:25,557 INFO     best SINDy hyperparameters: {'threshold': 0.03981071705534969, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:25,575 INFO     seir-infection: recon=3.546e-06 gen=2.664e-02 ood=1.348e-02 complexity=20
+2026-08-21 23:40:25,576 INFO       dx0/dt = (-0.16460845930326076)*((x2)**1)
+2026-08-21 23:40:25,576 INFO       dx1/dt = (-0.4666734289489096)*((x1)**1) + (0.15871294626946686)*((x2)**1)
+2026-08-21 23:40:25,576 INFO       dx2/dt = (0.47000000000000003)*((x1)**1) + (-0.3000000000000001)*((x2)**1)
+2026-08-21 23:40:25,576 INFO       dx3/dt = (0.2999999999999998)*((x2)**1)
+2026-08-21 23:40:25,576 INFO [60/63] RUN  sir-infection
+2026-08-21 23:40:26,646 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 0.0001, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:26,683 INFO     sir-infection: recon=1.560e-03 gen=1.524e+00 ood=6.900e-01 complexity=18
+2026-08-21 23:40:26,683 INFO       dx0/dt = (-2.8228306426860805)*((x0)**1) + (0.3357960720259729)*((x0)**2)
+2026-08-21 23:40:26,683 INFO       dx1/dt = (2.1097113147560234)*((x0)**1) + (-0.23764241149068482)*((x0)**2)
+2026-08-21 23:40:26,684 INFO [61/63] RUN  van-der-pol-oscillator
+2026-08-21 23:40:27,544 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 1, 'basis': 'polynomial'}
+2026-08-21 23:40:27,558 INFO     van-der-pol-oscillator: recon=7.847e-05 gen=2.669e+00 ood=9.647e+00 complexity=11
+2026-08-21 23:40:27,558 INFO       dx0/dt = (0.9999999999999998)*((x1)**1)
+2026-08-21 23:40:27,558 INFO       dx1/dt = (-5.276651317284788) + (1.379807242414974)*((x0)**1) + (-1.9856935338400765)*((x1)**1)
+2026-08-21 23:40:27,559 INFO [62/63] RUN  van-der-pol-oscillator-simplified
+2026-08-21 23:40:28,404 INFO     best SINDy hyperparameters: {'threshold': 1e-07, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-21 23:40:28,434 INFO     van-der-pol-oscillator-simplified: recon=2.886e-26 gen=6.821e-26 ood=5.472e-25 complexity=25
+2026-08-21 23:40:28,434 INFO       dx0/dt = (3.3700000000001276)*((x0)**1) + (3.3700000000004504)*((x1)**1) + (1.3060392540838094e-12)*((x1)**2) + (-1.123333333333303)*((x0)**3) + (1.1734699607685337e-12)*((x1)**3)
+2026-08-21 23:40:28,435 INFO       dx1/dt = (-0.29673590504449987)*((x0)**1)
+2026-08-21 23:40:28,435 INFO [63/63] RUN  velocity-falling-object
+2026-08-21 23:40:28,829 INFO     best SINDy hyperparameters: {'threshold': 0.004641588833612782, 'alpha': 1e-05, 'poly_order': 2, 'basis': 'polynomial'}
+2026-08-21 23:40:28,833 INFO     velocity-falling-object: recon=4.654e-05 gen=7.453e+01 ood=6.121e-01 complexity=1
+2026-08-21 23:40:28,833 INFO       dx0/dt = (9.731540862139177)
+2026-08-21 23:40:28,834 INFO SINDy done.
+2026-08-22 00:00:54,653 INFO SINDy on odebench: 1 systems -> /Users/apple/LLM-ACES/results/odebench/sindy
+2026-08-22 00:00:54,653 INFO [1/1] RUN  rc-circuit
+2026-08-22 00:00:57,851 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-22 00:00:57,861 INFO     rc-circuit: recon=1.470e-32 gen=3.172e-30 ood=3.385e-30 complexity=5
+2026-08-22 00:00:57,861 INFO       dx0/dt = (0.30303030303030065) + (-0.3607503607503607)*((x0)**1)
+2026-08-22 00:00:57,862 INFO SINDy done.
+2026-08-22 00:05:51,212 INFO SINDy on odebench: 1 systems -> /Users/apple/LLM-ACES/results/odebench/sindy
+2026-08-22 00:05:51,212 INFO [1/1] RUN  rc-circuit
+2026-08-22 00:05:53,214 INFO     best SINDy hyperparameters: {'threshold': 0.11659144011798311, 'alpha': 1e-05, 'poly_order': 3, 'basis': 'polynomial'}
+2026-08-22 00:05:53,223 INFO     rc-circuit: recon=1.470e-32 gen=3.172e-30 ood=3.385e-30 complexity=5
+2026-08-22 00:05:53,223 INFO       dx0/dt = (0.30303030303030065) + (-0.3607503607503607)*((x0)**1)
+2026-08-22 00:05:53,224 INFO SINDy done.

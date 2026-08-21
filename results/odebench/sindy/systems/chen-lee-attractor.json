@@ -1,0 +1,29 @@
+{
+  "system": "chen-lee-attractor",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/chen-lee-attractor/chen-lee-attractor.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 1.0,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(10.652357967558823) + (4.749942603558498)*((x0)**1) + (11.105622487797731)*((x1)**1) + (3.445150197039507)*((x2)**1)",
+    "(22.64868994492172) + (-8.369477776136833)*((x0)**1) + (-9.014036465734014)*((x1)**1) + (3.041721506025582)*((x2)**1)",
+    "(16.089178119745863) + (-1.3831580153685423)*((x1)**1)"
+  ],
+  "recon_nmse": 0.08809022301469485,
+  "gen_nmse": 0.2389530858571678,
+  "ood_nmse": 0.3074292048871077,
+  "recon_traj_nmse": 0.04374443265250162,
+  "gen_traj_nmse": 0.6648045022308715,
+  "ood_traj_nmse": 7584008.705697421,
+  "complexity": 27,
+  "parse_ok": true,
+  "train_time_s": 2.37
+}

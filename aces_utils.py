@@ -220,6 +220,31 @@ def _parse_max_nparams(spec_text: str) -> int:
 # Ground-truth ODE oracle (loaded from strogatz_ode.py)
 # ===========================================================================
 
+def _load_odebase_ode(system_name: str) -> Optional[Callable]:
+    """Ground-truth RHS for an ODEBase system (scripts/scibench/data/...)."""
+    try:
+        import importlib
+        importlib.import_module('scibench.data.equation_odes_odebase')
+        from scibench.data.base import EQUATION_CLASS_DICT
+    except Exception:
+        return None
+
+    name = system_name.split('_snr_')[0]
+    for cls in EQUATION_CLASS_DICT.values():
+        if str(getattr(cls, '_eq_name', '')) != name:
+            continue
+        try:
+            eq = cls()
+        except Exception:
+            return None
+
+        def true_rhs(t: float, x: np.ndarray, _eq=eq) -> np.ndarray:
+            return np.asarray(_eq.np_eq(t, np.asarray(x, dtype=float)), dtype=float).reshape(-1)
+
+        return true_rhs
+    return None
+
+
 def load_true_ode(system_name: str) -> Optional[Callable]:
     """Return a callable RHS f(t, x) -> np.ndarray for the named system.
 
@@ -243,7 +268,8 @@ def load_true_ode(system_name: str) -> Optional[Callable]:
             break
 
     if eq_dict is None:
-        return None
+        # ODEBase systems live in the scibench catalogue instead.
+        return _load_odebase_ode(system_name)
 
     dim = eq_dict['dim']
     consts = eq_dict['consts'][0]               # first (and usually only) param set

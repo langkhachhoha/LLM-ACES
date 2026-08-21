@@ -1,0 +1,28 @@
+{
+  "system": "rc-circuit",
+  "benchmark": "odebench",
+  "method": "llm_only",
+  "data_path": "data/ode/rc-circuit/rc-circuit.npz",
+  "status": "ok",
+  "error": "",
+  "model": "openai/gpt-4o-mini-2024-07-18",
+  "dim": 1,
+  "val_nmse": 0.0003088988462801796,
+  "n_candidates": 24,
+  "llm_calls": 4,
+  "llm_seconds": 6.99,
+  "prompt_tokens": 2684,
+  "completion_tokens": 430,
+  "equations": [
+    "-0.64 * x0 + 2.4"
+  ],
+  "recon_nmse": 0.016994310357285984,
+  "gen_nmse": 2.2418205094185586,
+  "ood_nmse": 2.50710356470107,
+  "recon_traj_nmse": 0.0004078002200442627,
+  "gen_traj_nmse": 0.031866987286103474,
+  "ood_traj_nmse": 0.33558691585934386,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 7.01
+}

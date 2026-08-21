@@ -1,0 +1,21 @@
+{
+  "system": "rc-circuit",
+  "benchmark": "odebench",
+  "method": "pysr",
+  "data_path": "data/ode/rc-circuit/rc-circuit.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "equations": [
+    "x0*(-0.32554278)"
+  ],
+  "recon_nmse": 0.00010493265580072326,
+  "gen_nmse": 0.05556320090150913,
+  "ood_nmse": 0.0580788250029986,
+  "recon_traj_nmse": 6.403022245032971e-07,
+  "gen_traj_nmse": 0.000986479148848538,
+  "ood_traj_nmse": 0.020725823061500597,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 9.98
+}

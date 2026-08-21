@@ -1,0 +1,27 @@
+{
+  "system": "improved-logistic-equation-harvesting-dimensionless",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/improved-logistic-equation-harvesting-dimensionless/improved-logistic-equation-harvesting-dimensionless.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 0.03981071705534969,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.7108847403466646)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0025909860573307118,
+  "gen_nmse": 0.027846955476498406,
+  "ood_nmse": 23.968970293887324,
+  "recon_traj_nmse": 0.00041277930655868897,
+  "gen_traj_nmse": 0.009704627019821464,
+  "ood_traj_nmse": 2893.2315678208847,
+  "complexity": 3,
+  "parse_ok": true,
+  "train_time_s": 0.62
+}

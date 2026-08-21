@@ -1,0 +1,924 @@
+{
+  "n_systems": 63,
+  "symbolic_accuracy": 0.24074074074074073,
+  "per_system": {
+    "aizawa-attractor": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x2 + 1) + x1",
+        "x0 + x1*(x2 + 1)",
+        "x0**3*x2 + x2**3 + x2 + (x0**2 + x1**2)*(x2 + 1) + 1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0",
+        "x0 + x1 + 1"
+      ]
+    },
+    "apoptosis-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1/(x0 + 1) + x0 + 1",
+        "(x0*x1 + x1 + x2*(x1 + 1)**2)/(x1 + 1)",
+        "(x0*x1 + x1 + x2*(x1 + 1)**2)/(x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x1*(x1 + 1)",
+        "x1*(x1 + 1)"
+      ]
+    },
+    "autocatalysis": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "autocatalytic-gene-switching": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "(x0**2 + (x0 + 1)*(x0**2 + 1))/(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "bacterial-respiration-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x1 + (x0 + 1)*(x0**2 + 1))/(x0**2 + 1)",
+        "(x0**2 + x0*x1 + 1)/(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "binocular-rivalry-adaptation": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + 1/(exp(x1 + x2) + 1)",
+        "x0 + x1",
+        "x2 + 1/(exp(x0 + x3) + 1)",
+        "x2 + x3"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + x3 + 1",
+        "x0 + x1",
+        "x0",
+        "x2 + x3"
+      ]
+    },
+    "binocular-rivalry-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + 1/(exp(x1) + 1)",
+        "x1 + 1/(exp(x0) + 1)"
+      ],
+      "pred_skeletons": [
+        "x1 + 1",
+        "x1 + 1"
+      ]
+    },
+    "brusselator": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2*x1 + x0 + 1",
+        "x0*(x0*x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + 1",
+        "x0*(x0 + 1)"
+      ]
+    },
+    "budworm-outbreak-model": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + (x0 + 1)*(x0**2 + 1))/(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "budworm-outbreak-predation": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + (x0 + 1)*(x0**2 + 1))/(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "catalyzing-rna-molecules": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1*(x0 + 1)",
+        "x0*x1*(x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1"
+      ]
+    },
+    "cdima-reaction": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x1 + (x0 + 1)*(x0**2 + 1))/(x0**2 + 1)",
+        "x0*(x0**2 + x1 + 1)/(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1",
+        "x0"
+      ]
+    },
+    "cell-cycle-model": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + (x0 + x1)*(x0**2 + 1)",
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0**3 + x0**2 + x0 + x1**3 + x1**2 + x1",
+        "x0 + 1"
+      ]
+    },
+    "chen-lee-attractor": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1*x2",
+        "x0*x2 + x1",
+        "x0*x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x0 + x1 + x2 + 1",
+        "x1 + 1"
+      ]
+    },
+    "damped-double-well-oscillator": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x0**3 + x0 + x1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0**3 + x0"
+      ]
+    },
+    "dimensionally-reduced-sir": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + exp(x0) + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "dipole-fixed-point": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0*x1",
+        "x0**2 + x1**2"
+      ],
+      "pred_skeletons": [
+        "x0**3 + x0**2 + x0 + x1**2 + x1 + 1",
+        "x0**2 + x1**2"
+      ]
+    },
+    "driven-pendulum-linear-damping": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x1 + sin(x0) + 1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1 + 1"
+      ]
+    },
+    "driven-pendulum-quadratic-damping": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x1*Abs(x1) + sin(x0) + 1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0 + 1"
+      ]
+    },
+    "duffing-equation": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x0 + x1*(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "1"
+      ]
+    },
+    "frictionless-bead": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "(cos(x0) + 1)*sin(x0)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0"
+      ]
+    },
+    "glider": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2 + sin(x1)",
+        "x0 + cos(x1)/x0"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + 1",
+        "1"
+      ]
+    },
+    "glycolytic-oscillator": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2*x1 + x0 + x1",
+        "x0**2*x1 + x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0"
+      ]
+    },
+    "gompertz-law-tumor-growth": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*log(x0)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "gray-scott-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1**2 + x0 + 1",
+        "x1*(x0*x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "x1"
+      ]
+    },
+    "harmonic-oscillator-damping": {
+      "score": 1.0,
+      "per_dim": [
+        true,
+        true
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x0 + x1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0 + x1"
+      ]
+    },
+    "harmonic-oscillator": {
+      "score": 1.0,
+      "per_dim": [
+        true,
+        true
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x0"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0"
+      ]
+    },
+    "improved-logistic-equation-harvesting-dimensionless": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2 + x0 + x0/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "improved-logistic-equation-harvesting": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2 + x0 + x0/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "1"
+      ]
+    },
+    "interacting-bar-magnets": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "sin(x0) + sin(x0 + x1)",
+        "sin(x1) + sin(x0 + x1)"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1"
+      ]
+    },
+    "landau-equation": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0**5 + x0**3 + x0"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "language-death-model": {
+      "score": 1.0,
+      "per_dim": [
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "logistic-equation-allee-effect": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1)**2"
+      ],
+      "pred_skeletons": [
+        "1"
+      ]
+    },
+    "logistic-equation-harvesting": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1) + 1"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "lorenz-equations-chaotic": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x0*x2 + x0 + x1",
+        "x0*x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1",
+        "x0 + x1 + x2 + 1",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "lorenz-equations-complex-periodic": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x0*x2 + x0 + x1",
+        "x0*x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1",
+        "x0**3 + x0**2 + x0 + x1**2 + x1 + x2 + 1",
+        "x0**2 + x0 + x1 + x2**2 + x2 + 1"
+      ]
+    },
+    "lorenz-equations-periodic": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x0*x2 + x0 + x1",
+        "x0*x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1",
+        "x0**3 + x0**2 + x0 + x1**3 + x1**2 + x1 + x2 + 1",
+        "x0**3 + x0**2 + x0 + x1**3 + x1**2 + x1 + x2**2 + x2 + 1"
+      ]
+    },
+    "lotka-volterra-competition": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x1*(x0 + x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + x1**2 + x1 + 1",
+        "x1*(x1 + 1)"
+      ]
+    },
+    "lotka-volterra-simple": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + 1)",
+        "x1*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + 1",
+        "x0**2 + x0 + x1"
+      ]
+    },
+    "maxwell-bloch-equations": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x0*x2 + x1",
+        "x0*x1 + x2 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x1 + x2",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "naive-critical-slowing-down": {
+      "score": 1.0,
+      "per_dim": [
+        true
+      ],
+      "gt_skeletons": [
+        "x0**3"
+      ],
+      "pred_skeletons": [
+        "x0**3"
+      ]
+    },
+    "oscillator-death-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "sin(x1)*cos(x0) + 1",
+        "sin(x1)*cos(x0) + 1"
+      ],
+      "pred_skeletons": [
+        "x1 + 1",
+        "x1 + 1"
+      ]
+    },
+    "overdamped-bead": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "(cos(x0) + 1)*sin(x0)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "overdamped-pendulum": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "sin(x0) + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "pendulum-non-linear-damping": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x1*cos(x0) + x1 + sin(x0)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1"
+      ]
+    },
+    "pendulum-without-friction": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "sin(x0)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "1"
+      ]
+    },
+    "photons-in-a-laser": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "population-growth-carrying-capacity": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "population-growth-naive": {
+      "score": 1.0,
+      "per_dim": [
+        true
+      ],
+      "gt_skeletons": [
+        "x0"
+      ],
+      "pred_skeletons": [
+        "x0"
+      ]
+    },
+    "protein-expression": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "(x0**5 + (x0 + 1)*(x0**5 + 1))/(x0**5 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "rc-circuit-non-linear-resistor": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "(exp(x0) + 2)/(exp(x0) + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "rc-circuit": {
+      "score": 1.0,
+      "per_dim": [
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "refined-language-death-model": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "2*x0*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    },
+    "rotational-dynamics": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "cos(x0)*cot(x1)",
+        "sin(x0)"
+      ],
+      "pred_skeletons": [
+        "x0**4 + x0**2 + x1**4 + x1**3 + x1**2 + x1 + 1",
+        "x0 + x1**3 + x1**2"
+      ]
+    },
+    "r\u00f6ssler-attractor-chaotic": {
+      "score": 0.6666666666666666,
+      "per_dim": [
+        true,
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1 + x2",
+        "x0 + x1",
+        "x2*(x0 + 1) + 1"
+      ],
+      "pred_skeletons": [
+        "x1 + x2",
+        "x0 + x1",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "r\u00f6ssler-attractor-periodic": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x1 + x2",
+        "x0 + x1",
+        "x2*(x0 + 1) + 1"
+      ],
+      "pred_skeletons": [
+        "x1 + x2",
+        "x0",
+        "x2"
+      ]
+    },
+    "r\u00f6ssler-fixed-point": {
+      "score": 0.6666666666666666,
+      "per_dim": [
+        true,
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1 + x2",
+        "x0 + x1",
+        "x2*(x0 + 1) + 1"
+      ],
+      "pred_skeletons": [
+        "x1 + x2",
+        "x0 + x1",
+        "x2 + 1"
+      ]
+    },
+    "schnackenberg-model": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2*x1 + x0 + 1",
+        "x0**2*x1 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "seir-infection": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "gt_skeletons": [
+        "x0*x2",
+        "x0*x2 + x1",
+        "x1 + x2",
+        "x2"
+      ],
+      "pred_skeletons": [
+        "x2",
+        "x1 + x2",
+        "x1 + x2",
+        "x2"
+      ]
+    },
+    "sir-infection": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1",
+        "x1*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0*(x0 + 1)",
+        "x0*(x0 + 1)"
+      ]
+    },
+    "van-der-pol-oscillator-simplified": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0**3 + x0 + x1",
+        "x0"
+      ],
+      "pred_skeletons": [
+        "x0**3 + x0 + x1**3 + x1**2 + x1",
+        "x0"
+      ]
+    },
+    "van-der-pol-oscillator": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x1",
+        "x0 + x1*(x0**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "velocity-falling-object": {
+      "score": 0.0,
+      "per_dim": [
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2 + 1"
+      ],
+      "pred_skeletons": [
+        "1"
+      ]
+    }
+  }
+}

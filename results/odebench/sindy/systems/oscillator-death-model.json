@@ -1,0 +1,28 @@
+{
+  "system": "oscillator-death-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/oscillator-death-model/oscillator-death-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(2.0537604440774446) + (-1.468448303938339)*((x1)**1)",
+    "(1.5937604440774447) + (-1.468448303938339)*((x1)**1)"
+  ],
+  "recon_nmse": 1.3668355946723687e-05,
+  "gen_nmse": 0.17573548010630877,
+  "ood_nmse": 33.41446542849004,
+  "recon_traj_nmse": 1.894114936267631e-08,
+  "gen_traj_nmse": 0.017615392941121605,
+  "ood_traj_nmse": 0.34761029858654924,
+  "complexity": 10,
+  "parse_ok": true,
+  "train_time_s": 1.12
+}

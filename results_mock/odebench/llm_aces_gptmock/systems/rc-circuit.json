@@ -1,0 +1,33 @@
+{
+  "system": "rc-circuit",
+  "benchmark": "odebench",
+  "method": "llm_aces_gptmock",
+  "model": "openai/gpt-4o-mini-2024-07-18",
+  "data_path": "data/ode/rc-circuit/rc-circuit.npz",
+  "dim": 1,
+  "status": "ok",
+  "error": "",
+  "queried_initial_conditions": [
+    [
+      3.4910140576814235
+    ],
+    [
+      1.4306103143729354
+    ]
+  ],
+  "n_oracle_queries": 3,
+  "equations": [
+    "0.30303064 + x0*(-0.3607504)"
+  ],
+  "recon_nmse": 1.2984739511795041e-16,
+  "gen_nmse": 6.851159714166683e-14,
+  "ood_nmse": 7.168787664791515e-14,
+  "recon_traj_nmse": 3.590600496114908e-11,
+  "gen_traj_nmse": 3.254980222267397e-11,
+  "ood_traj_nmse": 4.4045047537819247e-10,
+  "complexity": 5,
+  "parse_ok": true,
+  "n_iterations_logged": 2,
+  "final_train_size": 30,
+  "total_wall_time_s": 25.0
+}

@@ -1,0 +1,28 @@
+{
+  "system": "pendulum-non-linear-damping",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/pendulum-non-linear-damping/pendulum-non-linear-damping.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 3,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.9999999999999999)*((x1)**1)",
+    "(-2.032946858677195)*((x1)**1)"
+  ],
+  "recon_nmse": 0.1834835562509859,
+  "gen_nmse": 3.7576506968741192,
+  "ood_nmse": 2.841329701113659,
+  "recon_traj_nmse": 0.013192840499807991,
+  "gen_traj_nmse": 0.1934309780637722,
+  "ood_traj_nmse": 8.012076944891842,
+  "complexity": 6,
+  "parse_ok": true,
+  "train_time_s": 0.85
+}

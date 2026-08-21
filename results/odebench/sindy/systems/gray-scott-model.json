@@ -1,0 +1,28 @@
+{
+  "system": "gray-scott-model",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/gray-scott-model/gray-scott-model.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.11659144011798311,
+    "alpha": 0.0001,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(0.6104341966410748) + (-0.5403574611605837)*((x0)**1) + (-0.5499252975992625)*((x1)**1)",
+    "(0.27596712909089816)*((x1)**1)"
+  ],
+  "recon_nmse": 9.940417917600044e-05,
+  "gen_nmse": 0.2009497238152138,
+  "ood_nmse": 2.826968459760163,
+  "recon_traj_nmse": 4.66115315860502e-07,
+  "gen_traj_nmse": 0.0043722320071271125,
+  "ood_traj_nmse": 0.13558898456157395,
+  "complexity": 11,
+  "parse_ok": true,
+  "train_time_s": 1.37
+}

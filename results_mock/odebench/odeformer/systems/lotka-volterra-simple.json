@@ -1,0 +1,26 @@
+{
+  "system": "lotka-volterra-simple",
+  "benchmark": "odebench",
+  "method": "odeformer",
+  "data_path": "data/ode/lotka-volterra-simple/lotka-volterra-simple.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "beam_size": 50,
+    "beam_temperature": 0.5
+  },
+  "equations": [
+    "2.6471 * x_0 * x_1 * (-0.2316 + -0.0294 * x_1)",
+    "-2.9169 * x_1 + 1.5517 * x_0 * x_1"
+  ],
+  "recon_nmse": 0.0020003466123924684,
+  "gen_nmse": 0.9513390519055995,
+  "ood_nmse": 0.12606642419893524,
+  "recon_traj_nmse": 0.00029077356578870644,
+  "gen_traj_nmse": 0.40681349510729026,
+  "ood_traj_nmse": 0.9894416667579603,
+  "complexity": 17,
+  "parse_ok": true,
+  "train_time_s": 56.57
+}

@@ -1,0 +1,27 @@
+{
+  "system": "rc-circuit-non-linear-resistor",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/rc-circuit-non-linear-resistor/rc-circuit-non-linear-resistor.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-0.11830888103337144) + (0.25114057691967556)*((x0)**1)"
+  ],
+  "recon_nmse": 3.081769618476389e-08,
+  "gen_nmse": 0.0008015801281112851,
+  "ood_nmse": 0.12978666793176796,
+  "recon_traj_nmse": 6.429062196222219e-11,
+  "gen_traj_nmse": 0.001829510633192981,
+  "ood_traj_nmse": 0.02637891267122246,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.41
+}

@@ -1,0 +1,28 @@
+{
+  "system": "interacting-bar-magnets",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/interacting-bar-magnets/interacting-bar-magnets.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-0.5614597175779872)*((x0)**1)",
+    "0"
+  ],
+  "recon_nmse": 0.04411929294944549,
+  "gen_nmse": 0.8244700278953467,
+  "ood_nmse": 0.1672307800022183,
+  "recon_traj_nmse": 0.004999758176141453,
+  "gen_traj_nmse": 0.15904055586415458,
+  "ood_traj_nmse": 0.22676298236873949,
+  "complexity": 4,
+  "parse_ok": true,
+  "train_time_s": 1.07
+}

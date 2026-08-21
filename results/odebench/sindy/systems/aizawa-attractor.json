@@ -1,0 +1,29 @@
+{
+  "system": "aizawa-attractor",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/aizawa-attractor/aizawa-attractor.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 0.34145488738336005,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-3.574759698738166)*((x1)**1)",
+    "(3.4255502000022204)*((x0)**1)",
+    "(1.0113595742202397) + (-2.4726671441824752)*((x0)**1) + (-1.0519365123322286)*((x1)**1)"
+  ],
+  "recon_nmse": 0.0010702013921414658,
+  "gen_nmse": 0.27661274226614196,
+  "ood_nmse": 0.6167904308958545,
+  "recon_traj_nmse": 0.0011582951833467485,
+  "gen_traj_nmse": 0.4722020088662617,
+  "ood_traj_nmse": 13.512616231652729,
+  "complexity": 14,
+  "parse_ok": true,
+  "train_time_s": 3.04
+}

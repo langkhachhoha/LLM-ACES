@@ -1,0 +1,27 @@
+{
+  "system": "photons-in-a-laser",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/photons-in-a-laser/photons-in-a-laser.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(19.05858647474934) + (-1.1174379945130901)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0010543180545586875,
+  "gen_nmse": 6.677476253224608,
+  "ood_nmse": 5.934866496108752,
+  "recon_traj_nmse": 2.347541754689975e-06,
+  "gen_traj_nmse": 2.156903560377514,
+  "ood_traj_nmse": 0.001904613058782464,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.41
+}

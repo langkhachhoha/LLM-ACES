@@ -1,0 +1,27 @@
+{
+  "system": "lotka-volterra-simple",
+  "benchmark": "odebench",
+  "method": "llm_ode",
+  "data_path": "data/ode/lotka-volterra-simple/lotka-volterra-simple.npz",
+  "status": "ok",
+  "error": "",
+  "model": "openai/gpt-4o-mini-2024-07-18",
+  "dim": 2,
+  "llm_calls": 8,
+  "n_iterations": 2,
+  "prompt_tokens": 1293,
+  "completion_tokens": 423,
+  "equations": [
+    "6.5857307103330980738e-18*x_0*x_1",
+    "-3.2978968757910904763*x_1 + 60.130794476568581786*sin(0.267619701458785*x_0)"
+  ],
+  "recon_nmse": 0.4739733497861939,
+  "gen_nmse": 80.3292819219573,
+  "ood_nmse": 4.1018618154012065,
+  "recon_traj_nmse": 3.716868060575674,
+  "gen_traj_nmse": 2.3292054959737016,
+  "ood_traj_nmse": 14.613109581496358,
+  "complexity": 14,
+  "parse_ok": true,
+  "train_time_s": 13.55
+}

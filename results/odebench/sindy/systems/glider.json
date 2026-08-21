@@ -1,0 +1,28 @@
+{
+  "system": "glider",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/glider/glider.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 2,
+  "hyperparameters": {
+    "threshold": 1.0,
+    "alpha": 1e-05,
+    "poly_order": 2,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(48.982946032376184) + (-22.33690963348042)*((x0)**1) + (2.409833803281554)*((x0)**2)",
+    "0"
+  ],
+  "recon_nmse": 0.8529405456549902,
+  "gen_nmse": 11.545613326860705,
+  "ood_nmse": 118.26585478816766,
+  "recon_traj_nmse": 0.23582742173369786,
+  "gen_traj_nmse": 10000000000.0,
+  "ood_traj_nmse": 0.9167376271267611,
+  "complexity": 11,
+  "parse_ok": true,
+  "train_time_s": 1.41
+}

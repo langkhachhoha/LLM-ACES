@@ -1,0 +1,27 @@
+{
+  "system": "overdamped-pendulum",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/overdamped-pendulum/overdamped-pendulum.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 1,
+  "hyperparameters": {
+    "threshold": 1e-07,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(2.440325733004447) + (0.657013298599413)*((x0)**1)"
+  ],
+  "recon_nmse": 0.0006227653627763777,
+  "gen_nmse": 30.38133375056127,
+  "ood_nmse": 28.821833280962988,
+  "recon_traj_nmse": 2.3068392004354194e-06,
+  "gen_traj_nmse": 5.7405592339684315,
+  "ood_traj_nmse": 188750.94713092217,
+  "complexity": 5,
+  "parse_ok": true,
+  "train_time_s": 0.44
+}

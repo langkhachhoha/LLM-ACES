@@ -1,0 +1,999 @@
+{
+  "n_systems": 59,
+  "symbolic_accuracy": 0.09604519774011298,
+  "per_system": {
+    "odebase_vars2_prog1": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0 + x1*(x0 + 1)*(x0**2 + 1))/(x0 + 1)",
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog10": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*(x1**2 + 1) + x1**2)/(x1**2 + 1)",
+        "(x0**2*x1**3 + x0**2*x1 + x1**3 + 2*x1**2 + x1 + 1)/(x0**2*x1**2 + x0**2 + x1**2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "x1"
+      ]
+    },
+    "odebase_vars2_prog11": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x1 + (x0 + x1)*(x1 + 1))/(x1 + 1)",
+        "(x0*x1 + (x1 + 1)*(x0 + x1 + 1))/(x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1 + 1"
+      ]
+    },
+    "odebase_vars2_prog12": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 2)/(x0 + x1 + 1)",
+        "x1*(x0 + x1 + 2)/(x0 + x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + 1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog13": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1 + x0 + 1",
+        "x1*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog14": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + 1)",
+        "x1*(x0 + x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + x1**2 + x1"
+      ]
+    },
+    "odebase_vars2_prog15": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x0 + x1"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1"
+      ]
+    },
+    "odebase_vars2_prog16": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + 1)",
+        "x0*x1 + x0 + x1 + 1"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "x1"
+      ]
+    },
+    "odebase_vars2_prog17": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1",
+        "x0 + x1 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog18": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + 1",
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog19": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0 + (x0 + 1)*(x0*x1 + 1))/(x0 + 1)",
+        "x0*x1 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "odebase_vars2_prog2": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x1*(x0 + x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1"
+      ]
+    },
+    "odebase_vars2_prog20": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x1*(x0 + x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + x1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog21": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x0*x1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog22": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x1",
+        "x1*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "x1"
+      ]
+    },
+    "odebase_vars2_prog23": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0",
+        "x1 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog24": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "(x0*x1 + (x0 + 1)*(x0*x1 + x1 + 1))/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog3": {
+      "score": 0.5,
+      "per_dim": [
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0**3 + x0 + x1 + 1",
+        "x0 + x1 + 1"
+      ],
+      "pred_skeletons": [
+        "x0**3 + x0 + x1**4 + x1**3 + x1**2 + x1 + 1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "odebase_vars2_prog5": {
+      "score": 0.5,
+      "per_dim": [
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x0",
+        "x1"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1"
+      ]
+    },
+    "odebase_vars2_prog6": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*(x0 + 1) + x1)/(x0 + 1)",
+        "(x1 + (x0 + 1)*(x0 + x1))/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x1 + 1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "odebase_vars2_prog7": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1",
+        "x0 + x1 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + 1"
+      ]
+    },
+    "odebase_vars2_prog8": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**3 + x0**2 + x0 + 1",
+        "x0**3 + x0**2 + x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "x0 + x1 + 1"
+      ]
+    },
+    "odebase_vars2_prog9": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + 1)",
+        "x1"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "x0"
+      ]
+    },
+    "odebase_vars3_prog1": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + 1",
+        "x0 + x1",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + 1",
+        "x0",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog10": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x2 + 1)",
+        "(x0*x1 + (x0**2 + 1)*(x1 + 1))/(x0**2 + 1)",
+        "x0*x2 + x1*x2 + x2 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + 1",
+        "x1 + 1",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "odebase_vars3_prog11": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1 + 1",
+        "x0*x1",
+        "x0*x1"
+      ],
+      "pred_skeletons": [
+        "x2 + 1",
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog12": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x2**2 + (x0 + 1)**2)/(x2*(x0 + 1))",
+        "x0**2 + x1",
+        "x0 + x1 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x1",
+        "x1"
+      ]
+    },
+    "odebase_vars3_prog13": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + x2 + (x0 + 1)**2)/(x0 + 1)",
+        "x1*(x0 + (x0 + 1)*(x1 + 1))/(x0 + 1)",
+        "x2*(3*x0 + 1)/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x0 + x2 + 1",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog14": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        false,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + x0/(x0 + x1) + x1",
+        "x1*(x0 + x1 + 1)/(x0 + x1)",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x1 + x2 + 1",
+        "x1 + x2 + 1",
+        "x1 + x2"
+      ]
+    },
+    "odebase_vars3_prog15": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + x2 + 1)",
+        "x1*(x0 + x1 + x2 + 1)",
+        "(x0*x2*(x1 + 1) + x1*x2*(x0 + 1) + (x0 + 1)*(x1 + 1)*(x0*x2 + x1*x2 + x2 + 1))/((x0 + 1)*(x1 + 1))"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x1 + x2 + 1",
+        "x1 + 1"
+      ]
+    },
+    "odebase_vars3_prog16": {
+      "score": 0.6666666666666666,
+      "per_dim": [
+        true,
+        true,
+        false
+      ],
+      "gt_skeletons": [
+        "x0",
+        "x0 + x1",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "x0 + x1",
+        "x1"
+      ]
+    },
+    "odebase_vars3_prog17": {
+      "score": 1.0,
+      "per_dim": [
+        true,
+        true,
+        true
+      ],
+      "gt_skeletons": [
+        "x1 + 1",
+        "x1 + x2",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x1 + 1",
+        "x1 + x2",
+        "x0 + x2"
+      ]
+    },
+    "odebase_vars3_prog18": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0**2 + x0*x1 + x0 + 1",
+        "x1*(x2 + 1)",
+        "x2*(x1 + x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + x1 + 1",
+        "1",
+        "x2*(x2 + 1)"
+      ]
+    },
+    "odebase_vars3_prog19": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        false,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0**2 + x0*x1 + x0 + x2",
+        "x1*(x2 + 1)",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x1 + x2",
+        "x0 + x2"
+      ]
+    },
+    "odebase_vars3_prog2": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x2",
+        "x0*x2 + x1",
+        "x0*x2 + x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0**2 + x0 + x1**2 + x1 + x2**2 + x2 + 1",
+        "x0**2 + x0 + x1**2 + x1 + x2**2 + x2 + 1",
+        "x1"
+      ]
+    },
+    "odebase_vars3_prog20": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + x2 + 1",
+        "(2*x0*x1 + x0 + x1)/(x0*x1 + x0 + x1 + 1)",
+        "(x1*x2 + x1 + x2)/(x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + x1 + x2 + 1",
+        "x1 + 1"
+      ]
+    },
+    "odebase_vars3_prog21": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x1*(x0 + x2 + 1)",
+        "x0*x2 + x2 + 1"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog22": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0",
+        "x0 + x1",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + 1",
+        "x1"
+      ]
+    },
+    "odebase_vars3_prog23": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        false,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0*(x0*x2 + x1*x2 + x2 + 1)",
+        "x0*x1*x2 + x0*x2 + x1**2*x2 + x1*x2 + x1",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x0 + x1 + x2 + 1",
+        "x1 + x2"
+      ]
+    },
+    "odebase_vars3_prog24": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x2/(x0 + 1) + x0 + 1",
+        "(2*x0*x1 + x0 + x1)/(x0*x1 + x0 + x1 + 1)",
+        "(x1*x2 + x1 + x2)/(x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "x0 + x1 + x2 + 1",
+        "x1 + 1"
+      ]
+    },
+    "odebase_vars3_prog25": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + x2 + 1)",
+        "x1*(x0 + x1 + x2 + 1)",
+        "x2 + 1"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x1**2",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog26": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        true,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "1",
+        "(x0**2 + (x0 + 1)*(x0 + x1))/(x0 + 1)",
+        "(x1**2 + (x1 + 1)*(x1 + x2))/(x1 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1",
+        "x2 + 1"
+      ]
+    },
+    "odebase_vars3_prog27": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*(x2 + 1) + x0 + 1)/((x0 + 1)*(x2 + 1))",
+        "(x1 + (x1 + 1)*(x0 + x1 + x2))/(x1 + 1)",
+        "x1 + x2"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + x1 + x2",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog28": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)",
+        "x0*x1 + x1 + 1",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x2",
+        "1",
+        "x0"
+      ]
+    },
+    "odebase_vars3_prog29": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x2 + (x0 + 1)**2)/(x0 + 1)",
+        "(x0*x1 + (x0 + 1)*(x1 + 1))/(x0 + 1)",
+        "(x0*x1 + x2*(x0 + 1))/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + 1",
+        "x2"
+      ]
+    },
+    "odebase_vars3_prog3": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0 + 1",
+        "x1",
+        "x2*(x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1",
+        "x2 + 1"
+      ]
+    },
+    "odebase_vars3_prog30": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x1*(x1 + 1) + 1)/(x1 + 1)",
+        "x0*x1 + x1 + x2 + 1",
+        "x0*x1 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x1 + x2 + 1",
+        "x0 + x1 + x2 + 1",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "odebase_vars3_prog31": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0 + x1*(x0 + 1))/(x0 + 1)",
+        "(x1*x2 + x1 + 1)/(x1 + 1)",
+        "(x0*x2 + x0 + x2)/(x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x1",
+        "x0 + 1"
+      ]
+    },
+    "odebase_vars3_prog32": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*(x0 + 1) + x1)/(x0 + 1)",
+        "x0 + x1",
+        "(x1 + (x0 + 1)*(x1 + x2))/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x2",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog33": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        false,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "(x0*x2 + (x0 + x1)*(x2 + 1))/(x2 + 1)",
+        "x0 + x1**2 + x1",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x1",
+        "1",
+        "x0 + x2"
+      ]
+    },
+    "odebase_vars3_prog34": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "(x0*x2 + (x0 + x1 + x2 + 1)*(x0*x2**2 + x0 + x2 + 1))/(x0 + x1 + x2 + 1)",
+        "x1*(x0 + x1 + x2 + 2)/(x0 + x1 + x2 + 1)",
+        "x2*((x0*x2 + 1)*(x0 + x1 + x2 + 1) + 1)/(x0 + x1 + x2 + 1)"
+      ],
+      "pred_skeletons": [
+        "x2",
+        "x2",
+        "x2"
+      ]
+    },
+    "odebase_vars3_prog35": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1 + x0*x2 + x0 + 1",
+        "x1*(x0 + 1)",
+        "x2*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1",
+        "x0"
+      ]
+    },
+    "odebase_vars3_prog36": {
+      "score": 0.3333333333333333,
+      "per_dim": [
+        false,
+        false,
+        true
+      ],
+      "gt_skeletons": [
+        "x0",
+        "x1",
+        "x2"
+      ],
+      "pred_skeletons": [
+        "1",
+        "1",
+        "x2"
+      ]
+    },
+    "odebase_vars3_prog4": {
+      "score": 0.6666666666666666,
+      "per_dim": [
+        false,
+        true,
+        true
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + 1)",
+        "x1 + x2",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "x1 + x2",
+        "x0 + x2"
+      ]
+    },
+    "odebase_vars3_prog5": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x2*(x0 + x1 + 1)",
+        "x0 + 1 + 1/x2",
+        "x1*x2 + x1 + x2**2 + x2 + 1"
+      ],
+      "pred_skeletons": [
+        "x2",
+        "1",
+        "x0 + x1 + x2"
+      ]
+    },
+    "odebase_vars3_prog6": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*x1 + 1",
+        "x1 + x2",
+        "x0 + x2"
+      ],
+      "pred_skeletons": [
+        "x0 + x2 + 1",
+        "1",
+        "x0"
+      ]
+    },
+    "odebase_vars3_prog7": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + x2 + 1)",
+        "x0**2 + x0*x1 + x0*x2 + x0 + x1**2 + x1*x2 + x1",
+        "x0*x1 + x1**2 + x1*x2 + x1 + x2"
+      ],
+      "pred_skeletons": [
+        "1",
+        "x0 + 1",
+        "x0 + x1 + x2 + 1"
+      ]
+    },
+    "odebase_vars3_prog8": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "2*x0",
+        "2*x1",
+        "x2"
+      ],
+      "pred_skeletons": [
+        "x1 + 1",
+        "x1 + 1",
+        "1"
+      ]
+    },
+    "odebase_vars3_prog9": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x0 + x1 + 1)/(x0 + 1)",
+        "(x1*x2 + (x0 + x1)*(x2 + 1))/(x2 + 1)",
+        "(x0*x1 + x2*(x0 + 1))/(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0",
+        "1",
+        "x0 + x1 + x2 + 1"
+      ]
+    }
+  }
+}

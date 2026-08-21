@@ -1,0 +1,33 @@
+{
+  "n_systems": 2,
+  "symbolic_accuracy": 0.5,
+  "per_system": {
+    "lotka-volterra-simple": {
+      "score": 0.0,
+      "per_dim": [
+        false,
+        false
+      ],
+      "gt_skeletons": [
+        "x0*(x1 + 1)",
+        "x1*(x0 + 1)"
+      ],
+      "pred_skeletons": [
+        "x0*x1",
+        "x1 + sin(x0)"
+      ]
+    },
+    "rc-circuit": {
+      "score": 1.0,
+      "per_dim": [
+        true
+      ],
+      "gt_skeletons": [
+        "x0 + 1"
+      ],
+      "pred_skeletons": [
+        "x0 + 1"
+      ]
+    }
+  }
+}

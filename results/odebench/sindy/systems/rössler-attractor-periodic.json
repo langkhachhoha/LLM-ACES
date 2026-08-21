@@ -1,0 +1,29 @@
+{
+  "system": "r\u00f6ssler-attractor-periodic",
+  "benchmark": "odebench",
+  "method": "sindy",
+  "data_path": "data/ode/r\u00f6ssler-attractor-periodic/r\u00f6ssler-attractor-periodic.npz",
+  "status": "ok",
+  "error": "",
+  "dim": 3,
+  "hyperparameters": {
+    "threshold": 1.0,
+    "alpha": 1e-05,
+    "poly_order": 1,
+    "basis": "polynomial"
+  },
+  "equations": [
+    "(-4.999999999999999)*((x1)**1) + (-5.000000000000004)*((x2)**1)",
+    "(4.986295791351015)*((x0)**1)",
+    "(-15.492905244798184)*((x2)**1)"
+  ],
+  "recon_nmse": 0.006685088204850451,
+  "gen_nmse": 0.0419664778894782,
+  "ood_nmse": 0.18570274441410173,
+  "recon_traj_nmse": 0.028960910019750985,
+  "gen_traj_nmse": 0.03258942862763009,
+  "ood_traj_nmse": 0.5121814617672537,
+  "complexity": 13,
+  "parse_ok": true,
+  "train_time_s": 1.37
+}
