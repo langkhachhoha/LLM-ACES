@@ -386,7 +386,11 @@ run used to bury its result lines under hundreds of
 `FutureWarning` from `llmode.py:212`). SINDy is the same story: the Table 10
 sweep tries 16 thresholds per system, so PySINDy's `UserWarning: Sparsity
 parameter is too big ... eliminated all coefficients` fires on most of them by
-construction. Those are all expected -- a candidate that
+construction. PySR is a third case: the 18 unary operators of Appendix B.2 make
+DynamicExpressions.jl print "You have passed over 15 unary operators ..." on
+every fit, and that one arrives on *Julia's* stderr, so only Julia's logger can
+mute it (`common.quiet_julia_logging()` raises its level to `Error`; Julia
+errors still propagate as exceptions). Those are all expected -- a candidate that
 produces NaNs is *supposed* to score badly and be dropped -- so every driver now
 calls `common.silence_numeric_warnings()`, and LLM-ODE additionally routes
 upstream's root-logger chatter ("Error making random program: ...") into

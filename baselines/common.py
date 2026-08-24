@@ -485,6 +485,35 @@ def quiet_third_party_logging(result_dir: Path, filename: str = "third_party.log
     root.setLevel(logging.WARNING)
 
 
+_JULIA_QUIETED = False
+
+
+def quiet_julia_logging() -> None:
+    """Raise the Julia backend's log level so PySR stops printing ``@warn``.
+
+    The expanded operator set of Appendix B.2 has 18 unary operators, so every
+    PySR fit opens with DynamicExpressions.jl's "You have passed over 15 unary
+    operators ..." warning -- eight times per system on the active baselines.
+    It is informational (the extra compile-time optimisations it mentions are
+    the ones we are trading away on purpose), and it arrives on Julia's stderr,
+    not through Python's ``warnings``, so only Julia's logger can mute it.
+    Errors still propagate as exceptions. ``NUMERIC_WARNINGS=1`` opts out.
+    """
+    global _JULIA_QUIETED
+    if _JULIA_QUIETED or os.environ.get("NUMERIC_WARNINGS"):
+        return
+    _JULIA_QUIETED = True
+    try:
+        from pysr.julia_import import jl  # starts Julia; fit would do it anyway
+
+        jl.seval(
+            "using Logging: global_logger, ConsoleLogger, Error;"
+            " global_logger(ConsoleLogger(stderr, Error))"
+        )
+    except Exception:  # a Julia-less environment must not break the run
+        pass
+
+
 def set_thread_env(n: int = 1) -> None:
     for var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
                 "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS"):

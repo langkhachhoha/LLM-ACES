@@ -321,6 +321,13 @@ def fit_pysr_concept(
         print("  [ERROR] PySR not installed. Run: pip install pysr")
         return None
 
+    try:  # mute DynamicExpressions.jl's operator-count @warn (NUMERIC_WARNINGS=1 opts out)
+        from baselines import common as _common
+
+        _common.quiet_julia_logging()
+    except Exception:
+        pass
+
     u = np.asarray(train["u"], dtype=float)
     du = np.asarray(train["du"], dtype=float)
 

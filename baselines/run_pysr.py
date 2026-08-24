@@ -26,6 +26,7 @@ def build_regressor(niterations: int, populations: int, population_size: int,
                     unary: list[str] | None = None, binary: list[str] | None = None):
     from pysr import PySRRegressor
 
+    common.quiet_julia_logging()
     unary = list(unary if unary is not None else ops.PYSR_UNARY)
     binary = list(binary if binary is not None else ops.PYSR_BINARY)
     nested = {k: {kk: vv for kk, vv in v.items() if kk in unary}
