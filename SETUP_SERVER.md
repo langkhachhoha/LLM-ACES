@@ -416,6 +416,20 @@ process exits 0. Threads avoid it entirely and share one heap, which also
 matters on memory-capped containers. `--pysr_parallelism multiprocessing`
 restores the old behaviour if you want it.
 
+**Why BO/QBC/APPS-ODE look hung.** They are the only methods whose unit of work
+is longer than a log line. BO and QBC run a *complete* PySR search inside every
+acquisition round -- `n_iterations=10` rounds x one fit per state dimension --
+and APPS-ODE runs 50 policy-gradient epochs in a subprocess that returns
+nothing until it exits. Measured here (laptop, one core per fit): a BO round on
+a 1-D system takes ~60 s once Julia is warm (~105 s for the first, which pays
+Julia startup), so ~11 min for a 1-D system and ~35 min for a 3-D one;
+APPS-ODE is ~80 s per epoch, i.e. ~70 min per system. Nothing is stuck.
+
+Both now log per fit rather than per round, and APPS-ODE prints the path of the
+live subprocess log, so `tail -f results/<bench>/<method>/run.log` always shows
+movement. `--pysr_procs 8` (Julia threads) cuts BO/QBC substantially, and
+`--shard i/n` splits any sweep over several tmux sessions round-robin.
+
 **Console noise.** Third-party search loops lambdify every candidate equation
 and evaluate it without an `np.errstate` guard, so a normal LLM-ODE / APPS-ODE
 run used to bury its result lines under hundreds of

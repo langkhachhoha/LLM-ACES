@@ -423,6 +423,9 @@ def add_common_args(parser):
     parser.add_argument("--method_name", type=str, default=None,
                         help="Sub-folder name under results/<benchmark>/. Defaults to the method id.")
     parser.add_argument("--limit", type=int, default=None, help="Only run the first N systems (smoke tests).")
+    parser.add_argument("--shard", type=str, default=None,
+                        help="Run only shard i of n, as i/n (e.g. 0/4). Round-robin over the "
+                             "system list, so four sessions with 0/4..3/4 split a sweep evenly.")
     parser.add_argument("--systems", type=str, nargs="*", default=None, help="Explicit system stems to run.")
     parser.add_argument("--include_noisy", action="store_true")
     parser.add_argument("--no_resume", action="store_true")
@@ -439,6 +442,18 @@ def resolve_data_paths(args) -> list[Path]:
         paths = [p for p in paths if p.stem in wanted]
     if args.limit:
         paths = paths[: args.limit]
+    shard = getattr(args, "shard", None)
+    if shard:
+        try:
+            idx, total = (int(v) for v in shard.split("/"))
+        except ValueError:
+            raise SystemExit(f"--shard expects i/n (e.g. 0/4), got {shard!r}")
+        if not 0 <= idx < total:
+            raise SystemExit(f"--shard index out of range: {shard}")
+        # Round-robin rather than contiguous blocks: neighbouring systems in the
+        # sorted list tend to have the same dimension, so slicing by stride
+        # spreads the expensive high-dimensional ones over the shards.
+        paths = paths[idx::total]
     if not paths:
         raise SystemExit(f"No NPZ datasets found under {root}. Run the data generation step first.")
     return paths

@@ -177,8 +177,16 @@ def run_active(data: common.Dataset, args, logger, acq: str) -> dict:
         t0 = time.time()
         best_this, pareto_this = [], []
         for d in range(dim):
+            # One PySR fit at the paper's budget takes minutes, and there are
+            # n_iterations x dim of them per system, so say what is happening
+            # instead of leaving the log silent for an hour.
+            logger.info(f"      iter {it + 1}/{args.n_iterations} fitting dx{d}/dt "
+                        f"(n_train={len(train['u'])}) ...")
+            td = time.time()
             eq, pareto = _fit_dimension(train["u"], train["du"][:, d], args,
                                         seed=int(rng.integers(0, 2 ** 31)))
+            logger.info(f"      iter {it + 1}/{args.n_iterations} dx{d}/dt done in "
+                        f"{time.time() - td:.1f}s -> {eq}")
             best_this.append(eq)
             pareto_this.append(pareto)
             if eq is None:
@@ -188,7 +196,7 @@ def run_active(data: common.Dataset, args, logger, acq: str) -> dict:
                 best_val[d], best_eq[d] = v, eq
 
         logger.info(f"    iter {it + 1}/{args.n_iterations}  n_train={len(train['u'])}  "
-                    f"eqs={best_this}")
+                    f"({time.time() - t0:.1f}s)  eqs={best_this}")
 
         if it == args.n_iterations - 1:
             history.append({"iteration": it + 1, "n_train": int(len(train["u"])),

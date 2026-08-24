@@ -151,30 +151,43 @@ Every prompt and response is kept in
 ```bash
 # Bayesian Optimization: GP over IC space, EI over a pool of 256 ICs, 10 rounds
 bash scripts/tmux_run.sh bo \
-  bash -c 'bash run_baseline.sh bo odebench && bash run_baseline.sh bo odebase'
+  bash -c 'bash run_baseline.sh bo odebench --pysr_procs 8 && bash run_baseline.sh bo odebase --pysr_procs 8'
 
 # Query-by-Committee: committee drawn from the PySR Pareto front, 10 rounds
 bash scripts/tmux_run.sh qbc \
-  bash -c 'bash run_baseline.sh qbc odebench && bash run_baseline.sh qbc odebase'
+  bash -c 'bash run_baseline.sh qbc odebench --pysr_procs 8 && bash run_baseline.sh qbc odebase --pysr_procs 8'
 
 # APPS-ODE: 50 policy-gradient epochs, BFGS, inverse-NMSE reward
 bash scripts/tmux_run.sh appsode \
   bash -c 'bash run_baseline.sh apps_ode odebench --n_cores 8 && bash run_baseline.sh apps_ode odebase --n_cores 8'
 ```
 
-> **APPS-ODE is the one method that will not finish in a day.** A single
-> policy-gradient epoch takes ~80 s on one core, so the paper's 50 epochs cost
-> ~70 min per system and ~6 days for all 122 sequentially. Split it across
-> several sessions instead:
+> **These three are the slow ones, and they log per system, not per second.**
+> Expect long silences — that is the search running, not a hang:
+>
+> | method | per system | why |
+> |---|---|---|
+> | BO / QBC | ~2 min per PySR fit x 10 rounds x dim → 20 min (1-D) to 1 h (3-D) | a full PySR search inside every acquisition round |
+> | APPS-ODE | ~70 min (50 policy-gradient epochs, ~80 s each) | one subprocess per system, silent until it exits |
+>
+> Check they are alive rather than waiting for the next line:
+>
+> ```bash
+> tail -f results/odebench/bo/run.log            # BO/QBC: a line per fit
+> tail -f results/odebench/apps_ode/raw/*.log    # APPS-ODE: the live subprocess log
+> ```
+>
+> APPS-ODE at ~70 min/system is ~6 days for all 122 sequentially, so split it
+> over sessions with `--shard i/n` (round-robin, so the 3-D systems spread out):
 >
 > ```bash
 > for i in 0 1 2 3; do
 >   bash scripts/tmux_run.sh appsode$i \
->     bash run_baseline.sh apps_ode odebench --n_cores 8 \
->       --systems $(ls data/ode | awk "NR % 4 == $i" | tr '\n' ' ')
+>     bash run_baseline.sh apps_ode odebench --n_cores 8 --shard $i/4
 > done
 > ```
 >
+> The same flag works for every method (BO and QBC benefit just as much).
 > Reducing `--total_iterations` below 50 departs from the paper; say so if you do.
 
 BO and QBC record every queried initial condition and the per-iteration

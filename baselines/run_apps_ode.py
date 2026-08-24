@@ -24,6 +24,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from baselines import common
@@ -76,9 +77,15 @@ def make_fit(repo: Path, python_bin: str, args, result_dir: Path, name_map: dict
         logger.info(f"      [APPS-ODE] {eq_name}: {' '.join(cmd)}")
 
         log_file = (result_dir / "raw" / f"{data.name}.log").resolve()
+        # The subprocess runs 50 policy-gradient epochs and prints nothing back
+        # here until it exits (tens of minutes), so point at the live log.
+        logger.info(f"      [APPS-ODE] progress: tail -f {log_file}")
+        t_sub = time.time()
         with open(log_file, "w", encoding="utf-8") as lf:
             proc = subprocess.run(cmd, cwd=str(pkg), env=env, stdout=lf,
                                   stderr=subprocess.STDOUT, timeout=args.timeout)
+        logger.info(f"      [APPS-ODE] {eq_name} finished in {time.time() - t_sub:.1f}s "
+                    f"(exit {proc.returncode})")
         if proc.returncode != 0 or not out_json.exists():
             raise RuntimeError(f"APPS-ODE failed (exit {proc.returncode}); see {log_file}")
 
