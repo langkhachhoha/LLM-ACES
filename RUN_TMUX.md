@@ -39,7 +39,7 @@ Prerequisites: [SETUP_SERVER.md](SETUP_SERVER.md) steps 1–5 are done, and
 | `sindy` `pysr` `operon` | passive symbolic regression |
 | `odeformer` `e2e` | transformer baselines |
 | `llmonly` `llmode` | LLM-guided discovery |
-| `bo` `qbc` `appsode` | active symbolic discovery |
+| `bo_odebench` `bo_odebase` `qbc_odebench` `qbc_odebase` `appsode_odebench` `appsode_odebase` | active symbolic discovery (one session per benchmark) |
 | `score` | symbolic accuracy + final tables |
 
 Useful at any time:
@@ -148,47 +148,82 @@ Every prompt and response is kept in
 
 ## 4. Active symbolic discovery
 
+Six sessions, one per (method, benchmark). They are kept separate rather than
+chained with `&&` so that each benchmark starts immediately, a failure in one
+cannot hold up the other, and you can see at a glance in `tmux ls` which half
+is still running.
+
 ```bash
-# Bayesian Optimization: GP over IC space, EI over a pool of 256 ICs, 10 rounds
-bash scripts/tmux_run.sh bo \
-  bash -c 'bash run_baseline.sh bo odebench --pysr_procs 8 && bash run_baseline.sh bo odebase --pysr_procs 8'
+# --- Bayesian Optimization: GP over IC space, EI over a pool of 256 ICs, 10 rounds
+bash scripts/tmux_run.sh bo_odebench \
+  bash run_baseline.sh bo odebench --pysr_procs 8
 
-# Query-by-Committee: committee drawn from the PySR Pareto front, 10 rounds
-bash scripts/tmux_run.sh qbc \
-  bash -c 'bash run_baseline.sh qbc odebench --pysr_procs 8 && bash run_baseline.sh qbc odebase --pysr_procs 8'
+bash scripts/tmux_run.sh bo_odebase \
+  bash run_baseline.sh bo odebase --pysr_procs 8
 
-# APPS-ODE: 50 policy-gradient epochs, BFGS, inverse-NMSE reward
-bash scripts/tmux_run.sh appsode \
-  bash -c 'bash run_baseline.sh apps_ode odebench --n_cores 8 && bash run_baseline.sh apps_ode odebase --n_cores 8'
+# --- Query-by-Committee: committee drawn from the PySR Pareto front, 10 rounds
+bash scripts/tmux_run.sh qbc_odebench \
+  bash run_baseline.sh qbc odebench --pysr_procs 8
+
+bash scripts/tmux_run.sh qbc_odebase \
+  bash run_baseline.sh qbc odebase --pysr_procs 8
+
+# --- APPS-ODE: 50 policy-gradient epochs, BFGS, inverse-NMSE reward
+bash scripts/tmux_run.sh appsode_odebench \
+  bash run_baseline.sh apps_ode odebench --n_cores 8
+
+bash scripts/tmux_run.sh appsode_odebase \
+  bash run_baseline.sh apps_ode odebase --n_cores 8
 ```
 
+Running all six at once on one 8-core box makes them fight for cores. Either
+start the two benchmarks of one method and add the next method when they
+finish, or shard instead (below), which gives you the same parallelism with
+control over how many cores are in play.
+
 > **These three are the slow ones, and they log per system, not per second.**
-> Expect long silences — that is the search running, not a hang:
+> Long silences are the search running, not a hang. The unit that matters is a
+> *dimension*: BO and QBC run one complete PySR search per state dimension per
+> acquisition round, and there are 10 rounds.
 >
-> | method | per system | why |
+> | | measured | per system |
 > |---|---|---|
-> | BO / QBC | ~2 min per PySR fit x 10 rounds x dim → 20 min (1-D) to 1 h (3-D) | a full PySR search inside every acquisition round |
-> | APPS-ODE | ~70 min (50 policy-gradient epochs, ~80 s each) | one subprocess per system, silent until it exits |
+> | BO / QBC, `--pysr_procs 1` | ~150 s per dimension per round | ~25 min x dim (so ~75 min for a 3-D system) |
+> | APPS-ODE | ~80 s per policy-gradient epoch | ~70 min (50 epochs) |
 >
-> Check they are alive rather than waiting for the next line:
->
-> ```bash
-> tail -f results/odebench/bo/run.log            # BO/QBC: a line per fit
-> tail -f results/odebench/apps_ode/raw/*.log    # APPS-ODE: the live subprocess log
-> ```
->
-> APPS-ODE at ~70 min/system is ~6 days for all 122 sequentially, so split it
-> over sessions with `--shard i/n` (round-robin, so the 3-D systems spread out):
+> ODEBench is 117 state dimensions over 63 systems (23 1-D, 28 2-D, 10 3-D,
+> 2 4-D) and ODEBase is 154 over 59 (23 2-D, 36 3-D), so single-core BO or QBC
+> is ~49 h and ~64 h respectively. `--pysr_procs 8` runs each PySR search on 8
+> Julia threads and is the cheapest way to cut that; `--shard i/n` splits a
+> sweep over several sessions round-robin:
 >
 > ```bash
 > for i in 0 1 2 3; do
->   bash scripts/tmux_run.sh appsode$i \
->     bash run_baseline.sh apps_ode odebench --n_cores 8 --shard $i/4
+>   bash scripts/tmux_run.sh qbc_odebench_$i \
+>     bash run_baseline.sh qbc odebench --pysr_procs 2 --shard $i/4
 > done
 > ```
 >
-> The same flag works for every method (BO and QBC benefit just as much).
-> Reducing `--total_iterations` below 50 departs from the paper; say so if you do.
+> APPS-ODE at ~70 min/system is ~3 days per benchmark sequentially, so it wants
+> the same treatment:
+>
+> ```bash
+> for i in 0 1 2 3; do
+>   bash scripts/tmux_run.sh appsode_odebench_$i \
+>     bash run_baseline.sh apps_ode odebench --n_cores 2 --shard $i/4
+> done
+> ```
+>
+> Shards write into the same `results/<bench>/<method>/` folder — one JSON per
+> system, so there is nothing to merge afterwards. Reducing `--total_iterations`
+> below 50, or `--n_iterations` below 10, departs from the paper; say so if you do.
+>
+> Check progress rather than waiting for the next line:
+>
+> ```bash
+> tail -f results/odebench/qbc/run.log            # a line per dimension fit
+> tail -f results/odebench/apps_ode/raw/*.log     # APPS-ODE's live subprocess log
+> ```
 
 BO and QBC record every queried initial condition and the per-iteration
 equations in their result JSON (`queried_initial_conditions`, `iterations`), so
@@ -231,16 +266,22 @@ bash scripts/tmux_run.sh llmonly bash -c 'MODEL=openai/gpt-4o-mini-2024-07-18 ba
 # Wave 3
 bash scripts/tmux_run.sh aces-gpt-base  bash scripts/run_llm_aces.sh odebase openai/gpt-4o-mini-2024-07-18 gpt
 bash scripts/tmux_run.sh aces-qwen-base bash scripts/run_llm_aces.sh odebase qwen/qwen3-30b-a3b-instruct-2507 qwen
-bash scripts/tmux_run.sh bo  bash -c 'bash run_baseline.sh bo odebench && bash run_baseline.sh bo odebase'
-bash scripts/tmux_run.sh qbc bash -c 'bash run_baseline.sh qbc odebench && bash run_baseline.sh qbc odebase'
+bash scripts/tmux_run.sh bo_odebench  bash run_baseline.sh bo odebench --pysr_procs 8
+bash scripts/tmux_run.sh qbc_odebench bash run_baseline.sh qbc odebench --pysr_procs 8
 
 # Wave 4
 bash scripts/tmux_run.sh odeformer bash -c 'bash run_baseline.sh odeformer odebench && bash run_baseline.sh odeformer odebase'
 bash scripts/tmux_run.sh e2e       bash -c 'bash run_baseline.sh e2e odebench && bash run_baseline.sh e2e odebase'
-bash scripts/tmux_run.sh appsode   bash -c 'bash run_baseline.sh apps_ode odebench --n_cores 8'
+bash scripts/tmux_run.sh appsode_odebench bash run_baseline.sh apps_ode odebench --n_cores 8
+
+# Wave 5 — the ODEBase halves of the active methods (they are the longest jobs)
+bash scripts/tmux_run.sh bo_odebase      bash run_baseline.sh bo odebase --pysr_procs 8
+bash scripts/tmux_run.sh qbc_odebase     bash run_baseline.sh qbc odebase --pysr_procs 8
+bash scripts/tmux_run.sh appsode_odebase bash run_baseline.sh apps_ode odebase --n_cores 8
 ```
 
-Rough wall-clock on an 8-core machine (both benchmarks, 122 systems total):
+Rough wall-clock on an 8-core machine (both benchmarks, 122 systems total).
+The two active methods dominate everything else, so shard them from the start:
 
 | method | time |
 |---|---|
@@ -248,7 +289,7 @@ Rough wall-clock on an 8-core machine (both benchmarks, 122 systems total):
 | ODEFormer | 1–2 h |
 | E2E | 2–4 h |
 | LLM-only | 3–6 h |
-| BO / QBC | 3–6 h each |
+| BO / QBC | ~49 h (ODEBench) + ~64 h (ODEBase) each at `--pysr_procs 1`; shard them |
 | LLM-ACES (per model) | 6–12 h |
 | LLM-ODE | 6–12 h |
 | Operon | 4–8 h |
