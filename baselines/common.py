@@ -457,9 +457,11 @@ def silence_numeric_warnings() -> None:
     if os.environ.get("NUMERIC_WARNINGS"):
         return
     np.seterr(all="ignore")
-    warnings.filterwarnings("ignore", category=RuntimeWarning)
-    warnings.filterwarnings("ignore", category=FutureWarning)
-    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    for category in (RuntimeWarning, UserWarning, FutureWarning, DeprecationWarning):
+        # UserWarning covers PySINDy's "Sparsity parameter is too big ...
+        # eliminated all coefficients", which fires on most of the 16 thresholds
+        # in the Table 10 sweep by design, and sklearn's ConvergenceWarning.
+        warnings.filterwarnings("ignore", category=category)
     # Worker processes: fork inherits the filters above, spawn does not.
     os.environ.setdefault("PYTHONWARNINGS", "ignore")
 
