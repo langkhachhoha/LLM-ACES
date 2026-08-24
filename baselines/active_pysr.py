@@ -279,6 +279,7 @@ def main(acq: str) -> None:
     parser = build_parser(acq)
     args = parser.parse_args()
     common.set_thread_env(1)
+    common.silence_numeric_warnings()
 
     paths = common.resolve_data_paths(args)
     result_dir = common.make_result_dir(args.results_root, args.benchmark, args.method_name or acq)

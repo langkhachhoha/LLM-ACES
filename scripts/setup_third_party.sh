@@ -68,6 +68,11 @@ setup_e2e() {
     echo "[download] E2E pretrained checkpoint (~700MB)"
     curl -L --fail -o "$ckpt" https://dl.fbaipublicfiles.com/symbolicregression/model1.pt
   fi
+  # numpy>=2 removed numpy.compat. Upstream imports npy_load_module from it in
+  # envs/generators.py and never uses it, so the line only has to go away.
+  # Idempotent: matches nothing once already patched.
+  perl -pi -e "s/^from numpy\\.compat\\.py3k import npy_load_module\\n//" \
+    "$TP/symbolicregression/symbolicregression/envs/generators.py"
   echo "[ok] E2E ready at third_party/symbolicregression"
 }
 

@@ -126,6 +126,17 @@ Two pip warnings are expected and harmless:
   require. All 122 SINDy systems were run on this exact combination.
 * `odeformer` may pin an older sympy/scipy; the pins above win and work.
 
+If you install anything else into the env later, re-check the numpy version --
+`pysindy` and several other packages will happily pull numpy 2 in behind you:
+
+```bash
+python -c "import numpy; print(numpy.__version__)"   # expect 1.26.4
+pip install "numpy==1.26.4"                          # if it drifted
+```
+
+Everything here runs on numpy 2 as well (E2E included, see the notes at the
+bottom), but 1.26.4 is the combination all the reported numbers were produced on.
+
 Nothing else needs installing. In particular the APPS-ODE `scibench` and
 `grammar` packages are **not** pip-installed — they are pure Python and the
 driver puts them on `PYTHONPATH`, which keeps them from shadowing this repo's
@@ -318,7 +329,8 @@ evaluate to non-finite values on the training states are dropped for that
 system, since STLSQ cannot fit NaN columns.
 
 **Bugs this test round surfaced (all fixed).** Running every method for real on a
-2-system subset caught five things that no amount of code reading had:
+2-system subset, plus the first run on the Linux server, caught six things that
+no amount of code reading had:
 
 1. `sympytorch` is imported by the E2E checkpoint's unpickling path and was
    missing from the install list — E2E died on `torch.load`.
@@ -336,6 +348,13 @@ system, since STLSQ cannot fit NaN columns.
 5. APPS-ODE's `model.train()` returns `best_expression=None` whenever the reward
    threshold is never reached (i.e. on most real systems); the driver now falls
    back to the ranked top-k population.
+6. E2E's upstream `envs/generators.py` opens with
+   `from numpy.compat.py3k import npy_load_module`, and `numpy.compat` was
+   removed in NumPy 2 — so on any env that drifted to numpy>=2 the checkpoint
+   failed to unpickle with `ModuleNotFoundError: No module named 'numpy.compat'`.
+   The symbol is never used upstream, so `baselines/run_e2e.py` now re-supplies
+   it before `torch.load` (`_ensure_numpy_compat`) and `setup_third_party.sh`
+   deletes the dead import from fresh clones. E2E runs on numpy 1.x and 2.x.
 
 Plus one efficiency fix: ODEFormer reloaded the pretrained checkpoint for each
 of its 6 fits per system (~730 loads over a full benchmark); it is now cached
@@ -345,19 +364,35 @@ per process.
 122 systems), PySR, BO, QBC, LLM-only, LLM-ODE, LLM-ACES (both benchmarks' data
 generation and a full GPT-4o-mini run on `rc-circuit`), ODEFormer, the
 symbolic-accuracy judge, the aggregation step and `scripts/tmux_run.sh` were all
-run end-to-end. The APPS-ODE runner was
-verified for one epoch on `odebase_vars2_prog1` (its output flows through the
-shared evaluator correctly). **Operon and E2E were not executed here**: pyoperon
-publishes no wheel for macOS 13 (Linux x86_64 wheels exist, so the server is
-fine) and the E2E checkpoint is a 700 MB download. Both drivers mirror MDBench's
-implementations line for line, but run their smoke test first
-(`--systems rc-circuit --no_resume`) before launching the full sweep.
+run end-to-end, as was E2E (`rc-circuit`, pretrained checkpoint). The APPS-ODE
+runner was verified for one epoch on `odebase_vars2_prog1` (its output flows
+through the shared evaluator correctly). **Only Operon was never executed
+here**: pyoperon publishes no wheel for macOS 13 (Linux x86_64 wheels exist, so
+the server is fine). Its driver mirrors MDBench's implementation line for line,
+but run the smoke test first
+(`bash run_baseline.sh operon odebench --systems rc-circuit --no_resume`,
+expect roughly `dx0/dt = 0.3030 - 0.3608*x0`) before launching the full sweep.
 
 **APPS-ODE coverage.** APPS-ODE addresses systems by scibench ids.
 `scripts/build_scibench_map.py` matches 120 of the 122 systems by comparing
 vector fields numerically (with a description-based fallback);
 `binocular-rivalry-model` and `refined-language-death-model` have no scibench
 twin and are skipped, which is reported in the run log.
+
+**Console noise.** Third-party search loops lambdify every candidate equation
+and evaluate it without an `np.errstate` guard, so a normal LLM-ODE / APPS-ODE
+run used to bury its result lines under hundreds of
+`RuntimeWarning: invalid value encountered in log` messages (plus a pandas
+`FutureWarning` from `llmode.py:212`). Those are expected -- a candidate that
+produces NaNs is *supposed* to score badly and be dropped -- so every driver now
+calls `common.silence_numeric_warnings()`, and LLM-ODE additionally routes
+upstream's root-logger chatter ("Error making random program: ...") into
+`<result_dir>/llmode_upstream.log` instead of stdout. Nothing is lost from
+`run.log`. To get the noise back for debugging:
+
+```bash
+NUMERIC_WARNINGS=1 bash run_baseline.sh llm_ode odebench --systems rc-circuit --no_resume
+```
 
 **LLM-ODE transport and interpreter.** The upstream `Llm` class calls a local
 vLLM server through the OpenAI *responses* API and picks the model with

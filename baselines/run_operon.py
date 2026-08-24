@@ -102,6 +102,7 @@ def main() -> None:
                         help="Per-dimension Operon wall-clock cap in seconds.")
     args = parser.parse_args()
     common.set_thread_env(args.n_threads)
+    common.silence_numeric_warnings()
 
     n_threads = cpu_count() if args.n_threads == -1 else args.n_threads
     paths = common.resolve_data_paths(args)

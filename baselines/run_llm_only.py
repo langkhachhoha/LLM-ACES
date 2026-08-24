@@ -224,6 +224,7 @@ def main() -> None:
     parser.add_argument("--temperature", type=float, default=1.0)
     args = parser.parse_args()
     common.set_thread_env(1)
+    common.silence_numeric_warnings()
 
     paths = common.resolve_data_paths(args)
     method = args.method_name or "llm_only"

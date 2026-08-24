@@ -26,9 +26,48 @@ N_TREES_TO_REFINE = 10
 RESCALE = True
 
 
+def _ensure_numpy_compat() -> None:
+    """Upstream ``envs/generators.py`` starts with ``from numpy.compat.py3k
+    import npy_load_module``; ``numpy.compat`` was removed in NumPy 2.
+
+    The imported symbol is never used upstream, but the import line executes
+    while ``torch.load`` unpickles the checkpoint, so it has to resolve.
+    Re-supplying the historical helper is cheaper than pinning numpy<2 for the
+    whole environment because of one dead import.
+    """
+    try:
+        import numpy.compat.py3k  # noqa: F401
+        return
+    except Exception:
+        pass
+
+    import importlib.machinery
+    import importlib.util
+    import types
+
+    import numpy
+
+    def npy_load_module(name, fn, info=None):
+        loader = importlib.machinery.SourceFileLoader(name, fn)
+        spec = importlib.util.spec_from_file_location(name, fn, loader=loader)
+        mod = importlib.util.module_from_spec(spec)
+        loader.exec_module(mod)
+        return mod
+
+    compat = sys.modules.get("numpy.compat") or types.ModuleType("numpy.compat")
+    py3k = types.ModuleType("numpy.compat.py3k")
+    py3k.npy_load_module = npy_load_module
+    compat.py3k = py3k
+    compat.npy_load_module = npy_load_module
+    sys.modules["numpy.compat"] = compat
+    sys.modules["numpy.compat.py3k"] = py3k
+    numpy.compat = compat
+
+
 def _load_base_model(repo: Path, checkpoint: Path):
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
+    _ensure_numpy_compat()
     import torch
 
     if not checkpoint.is_file():
@@ -78,6 +117,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=str, default=os.environ.get("E2E_CHECKPOINT", "third_party/symbolicregression/model.pt"))
     args = parser.parse_args()
     common.set_thread_env(1)
+    common.silence_numeric_warnings()
 
     paths = common.resolve_data_paths(args)
     result_dir = common.make_result_dir(args.results_root, args.benchmark, args.method_name or "e2e")

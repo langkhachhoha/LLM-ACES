@@ -221,6 +221,7 @@ def main() -> None:
     parser.add_argument("--temperature", type=float, default=1.0)
     args = parser.parse_args()
     common.set_thread_env(1)
+    common.silence_numeric_warnings()
 
     # Upstream validates hypotheses in a ProcessPoolExecutor. It is written for
     # Linux, where "fork" is the default and the children inherit sys.path and
@@ -236,6 +237,7 @@ def main() -> None:
     method = args.method_name or "llm_ode"
     result_dir = common.make_result_dir(args.results_root, args.benchmark, method)
     logger = common.setup_logger(result_dir, "llm_ode")
+    common.quiet_third_party_logging(result_dir, "llmode_upstream.log")
     llmode_mod, _ = load_upstream(Path(args.repo))
     logger.info(f"LLM-ODE ({args.model}) on {args.benchmark}: {len(paths)} systems -> {result_dir}")
 

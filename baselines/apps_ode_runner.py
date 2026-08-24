@@ -23,8 +23,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
+import warnings
 from pathlib import Path
 
 import numpy as np
@@ -49,6 +51,12 @@ def main() -> None:
     ap.add_argument("--trajectory_time_steps", type=int, default=100)
     ap.add_argument("--t_end", type=float, default=1.0)
     args = ap.parse_args()
+
+    # Same policy as baselines/common.silence_numeric_warnings(): the policy
+    # search scores plenty of NaN-producing candidates on purpose.
+    if not os.environ.get("NUMERIC_WARNINGS"):
+        np.seterr(all="ignore")
+        warnings.filterwarnings("ignore")
 
     import torch
     from scibench.symbolic_equation_evaluator import Equation_evaluator

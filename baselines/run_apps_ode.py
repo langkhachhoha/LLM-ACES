@@ -125,6 +125,7 @@ def main() -> None:
     parser.add_argument("--n_cores", type=int, default=1)
     parser.add_argument("--timeout", type=int, default=3 * 60 * 60)
     args = parser.parse_args()
+    common.silence_numeric_warnings()
 
     paths = common.resolve_data_paths(args)
     method = args.method_name or "apps_ode"

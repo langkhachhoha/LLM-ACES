@@ -28,6 +28,7 @@ import os
 import signal
 import sys
 import time
+import warnings
 from pathlib import Path
 from typing import Callable, Sequence
 
@@ -441,6 +442,45 @@ def resolve_data_paths(args) -> list[Path]:
     if not paths:
         raise SystemExit(f"No NPZ datasets found under {root}. Run the data generation step first.")
     return paths
+
+
+def silence_numeric_warnings() -> None:
+    """Mute the numerical noise third-party search loops make while scoring
+    candidate equations.
+
+    Upstream evolutionary searches lambdify every hypothesis and call it without
+    an ``np.errstate`` guard, so each ``log`` of a negative number or overflowing
+    ``exp`` in a *bad* candidate prints a RuntimeWarning -- hundreds of lines per
+    system, all of them expected (a candidate that produces NaNs is supposed to
+    score badly and be discarded). Set ``NUMERIC_WARNINGS=1`` to get them back.
+    """
+    if os.environ.get("NUMERIC_WARNINGS"):
+        return
+    np.seterr(all="ignore")
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    warnings.filterwarnings("ignore", category=FutureWarning)
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    # Worker processes: fork inherits the filters above, spawn does not.
+    os.environ.setdefault("PYTHONWARNINGS", "ignore")
+
+
+def quiet_third_party_logging(result_dir: Path, filename: str = "third_party.log") -> None:
+    """Send third-party ``logging.warning`` chatter to a file instead of stdout.
+
+    Upstream search loops log every failed hypothesis on the *root* logger
+    ("Error making random program: Score is NaN or Inf", ...). That is useful
+    diagnostic material but it does not belong between our per-system result
+    lines, and our own loggers set ``propagate = False`` so redirecting root is
+    safe. Set ``NUMERIC_WARNINGS=1`` to keep it on the console as well.
+    """
+    root = logging.getLogger()
+    root.handlers.clear()
+    fh = logging.FileHandler(result_dir / filename)
+    fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+    root.addHandler(fh)
+    if os.environ.get("NUMERIC_WARNINGS"):
+        root.addHandler(logging.StreamHandler(sys.stdout))
+    root.setLevel(logging.WARNING)
 
 
 def set_thread_env(n: int = 1) -> None:
