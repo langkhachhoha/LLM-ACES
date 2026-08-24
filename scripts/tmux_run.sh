@@ -43,6 +43,20 @@ LOG_DIR="$ROOT/logs/tmux"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/$SESSION.log"
 
+# The shell that keeps the pane alive is interactive, so it reads ~/.bashrc --
+# and conda's hook there re-activates `base`, dropping you out of llm-aces the
+# moment the run finishes. Hand it an rc file that sources the normal one and
+# then puts the env back.
+RC_FILE="$LOG_DIR/.rc-$SESSION"
+{
+  echo '[ -f /etc/bash.bashrc ] && . /etc/bash.bashrc'
+  echo '[ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"'
+  if [[ -n "${CONDA_DEFAULT_ENV:-}" ]]; then
+    printf 'conda activate %q 2>/dev/null || true\n' "$CONDA_DEFAULT_ENV"
+  fi
+  printf 'cd %q\n' "$ROOT"
+} > "$RC_FILE"
+
 # Preserve argv exactly: printf %q quotes each argument so that when bash
 # re-parses the line inside the pane it rebuilds the same argument vector.
 # (Plain "$*" would flatten `bash -c 'a && b'` into three separate words.)
@@ -62,7 +76,7 @@ echo
 echo "[$SESSION] finished \$(date '+%F %T') with exit \$status"
 echo "[$SESSION] log: $LOG_FILE"
 echo "[$SESSION] session kept alive - detach with Ctrl-b d, close with 'exit'"
-exec bash
+exec bash --rcfile '$RC_FILE' -i
 EOF
 )
 

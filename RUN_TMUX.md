@@ -111,6 +111,18 @@ bash scripts/tmux_run.sh e2e \
 > state dimension, so budget ~6 h for ODEBench and ~10 h for ODEBase on 8 cores.
 > To scout faster first, add `--pysr_niterations 20 --pysr_populations 15`
 > (LLM-ACES's own PySR budget) and re-run at full budget later with `--no_resume`.
+>
+> `--pysr_procs 8` means 8 Julia **threads**. If you switch to
+> `--pysr_parallelism multiprocessing`, expect a wall of
+> `UNHANDLED TASK ERROR: Distributed.ProcessExitedException(n)` at the end of
+> every fit — that is PySR tearing down its Distributed workers *after* the
+> equations are chosen, not a failure (the per-system JSON still says
+> `status: "ok"`).
+
+> Re-launching any of these resumes: a system is skipped only if its stored
+> status is `ok`, so systems that errored are retried automatically. Count them
+> with
+> `python -c "import json,glob,collections; print(collections.Counter(json.load(open(f))['status'] for f in glob.glob('results/odebench/pysr/systems/*.json')))"`.
 
 ---
 

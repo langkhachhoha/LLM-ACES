@@ -49,6 +49,7 @@ def _fit_dimension(u, y, args, seed):
         population_size=args.pysr_population_size, ncycles=args.pysr_ncycles,
         maxsize=args.pysr_maxsize, maxdepth=args.pysr_maxdepth,
         procs=args.pysr_procs, seed=seed, timeout_s=args.pysr_timeout,
+        parallelism=getattr(args, "pysr_parallelism", "auto"),
     )
     model.fit(u, y)
     eqs = model.equations_

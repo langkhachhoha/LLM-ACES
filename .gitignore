@@ -14,5 +14,9 @@ third_party/
 # keep everything under results/ (per-system JSON, run logs, LLM transcripts)
 !results/
 !results/**
+# the shipped SINDy validation run, kept out of results/ so a fresh checkout
+# starts with an empty results tree and --resume never skips your own runs
+!reference_results/
+!reference_results/**
 odeformer.pt
 model.pt

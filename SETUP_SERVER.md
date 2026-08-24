@@ -276,6 +276,12 @@ spans twenty orders of magnitude across methods — which is the main evidence
 that the vector-field NMSE reading and the data generation are right. If your
 SINDy row comes out very differently, fix that before launching anything else.
 
+That run is committed under `reference_results/` so you can diff against it
+per system. It is deliberately *not* under `results/`: every driver resumes by
+skipping systems already stored with `status: "ok"`, so a shipped run inside
+`results/` would make your own first SINDy launch skip all 122 systems and exit
+in three seconds.
+
 Individual spot checks on `rc-circuit` (a system every method should solve):
 
 | method | recon NMSE | discovered equation |
@@ -378,6 +384,37 @@ expect roughly `dx0/dt = 0.3030 - 0.3608*x0`) before launching the full sweep.
 vector fields numerically (with a description-based fallback);
 `binocular-rivalry-model` and `refined-language-death-model` have no scibench
 twin and are skipped, which is reported in the run log.
+
+**Resuming, and re-running a method.** Every driver writes one JSON per system
+and, on the next launch, skips only the systems stored with `status: "ok"` —
+so a run that died halfway, or one where a few systems raised, is resumed
+simply by launching the same command again. To force a full redo, either pass
+`--no_resume` or delete that method's folder:
+
+```bash
+python -c "
+import json, glob, collections
+c = collections.Counter(json.load(open(f))['status']
+                        for f in glob.glob('results/odebench/pysr/systems/*.json'))
+print(c)"                                    # how many ok / error
+rm -rf results/odebench/pysr                 # or: --no_resume
+```
+
+**PySR parallelism.** `--pysr_procs N` now runs N Julia *threads*
+(`--pysr_parallelism auto`, which is also PySR's own default). The previous
+default, `multiprocessing`, runs N separate Julia worker processes over
+Distributed, and PySR tears those workers down while the search loop is still
+fetching from them, so a perfectly successful run ends in a wall of
+
+```
+UNHANDLED TASK ERROR: Distributed.ProcessExitedException(6)
+```
+
+That message is teardown noise, not a failed fit — it is printed *after* the
+equations are selected, the per-system JSON still says `status: "ok"`, and the
+process exits 0. Threads avoid it entirely and share one heap, which also
+matters on memory-capped containers. `--pysr_parallelism multiprocessing`
+restores the old behaviour if you want it.
 
 **Console noise.** Third-party search loops lambdify every candidate equation
 and evaluate it without an `np.errstate` guard, so a normal LLM-ODE / APPS-ODE

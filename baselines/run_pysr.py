@@ -14,16 +14,41 @@ Pareto-front member maximising MDBench's ``fitness(nmse, complexity)``.
 from __future__ import annotations
 
 import argparse
+import os
 
 import numpy as np
 
 from baselines import common, ops
 
 
+def resolve_parallelism(mode: str, procs: int) -> str:
+    """``auto`` -> serial for one process, Julia *threads* above that.
+
+    Threads are also PySR's own default. The alternative, "multiprocessing",
+    runs the populations in ``procs`` separate Julia processes over Distributed,
+    and when PySR tears those workers down at the end of a fit the search loop's
+    monitoring tasks are still fetching from them, so every run ends with a
+    stack of ``UNHANDLED TASK ERROR: Distributed.ProcessExitedException(n)``.
+    That noise is harmless -- the equations are already selected by then -- but
+    it is indistinguishable from a real worker crash, and threads share one heap
+    so they are lighter on memory-limited machines. Both modes were verified to
+    return the same equation on rc-circuit.
+    """
+    if mode != "auto":
+        return mode
+    return "serial" if procs <= 1 else "multithreading"
+
+
 def build_regressor(niterations: int, populations: int, population_size: int,
                     ncycles: int, maxsize: int, maxdepth: int, procs: int,
                     seed: int, timeout_s: float | None = None,
-                    unary: list[str] | None = None, binary: list[str] | None = None):
+                    unary: list[str] | None = None, binary: list[str] | None = None,
+                    parallelism: str = "auto"):
+    mode = resolve_parallelism(parallelism, procs)
+    if mode == "multithreading" and procs > 1:
+        # juliacall reads this when Julia starts, i.e. on the first pysr import.
+        os.environ.setdefault("PYTHON_JULIACALL_THREADS", str(procs))
+
     from pysr import PySRRegressor
 
     common.quiet_julia_logging()
@@ -49,11 +74,11 @@ def build_regressor(niterations: int, populations: int, population_size: int,
         verbosity=0,
         progress=False,
         random_state=seed,
-        deterministic=procs <= 1,
-        parallelism="serial" if procs <= 1 else "multiprocessing",
+        deterministic=mode == "serial",
+        parallelism=mode,
         temp_equation_file=True,
     )
-    if procs > 1:
+    if mode == "multiprocessing" and procs > 1:
         kwargs["procs"] = procs
     if timeout_s and timeout_s > 0:
         kwargs["timeout_in_seconds"] = timeout_s
@@ -95,6 +120,7 @@ def fit_pysr_system(u: np.ndarray, du: np.ndarray, dim: int, args, seed: int,
             maxsize=args.pysr_maxsize, maxdepth=args.pysr_maxdepth,
             procs=args.pysr_procs, seed=seed + d, timeout_s=args.pysr_timeout,
             unary=unary, binary=binary,
+            parallelism=getattr(args, "pysr_parallelism", "auto"),
         )
         model.fit(u, du[:, d])
         eq = pareto_best_equation(model, u, du[:, d])
@@ -112,6 +138,11 @@ def add_pysr_args(parser):
     parser.add_argument("--pysr_maxsize", type=int, default=40)
     parser.add_argument("--pysr_maxdepth", type=int, default=20)
     parser.add_argument("--pysr_procs", type=int, default=1)
+    parser.add_argument("--pysr_parallelism", type=str, default="auto",
+                        choices=["auto", "serial", "multithreading", "multiprocessing"],
+                        help="auto = serial for --pysr_procs 1, multiprocessing above. "
+                             "Use multithreading if Julia workers get OOM-killed "
+                             "(Distributed.ProcessExitedException).")
     parser.add_argument("--pysr_timeout", type=float, default=0.0,
                         help="Per-dimension PySR wall-clock cap in seconds (0 = no cap).")
     return parser
