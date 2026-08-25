@@ -6,6 +6,7 @@
 #   bash scripts/launch_all.sh --cores 64      # force a budget
 #   bash scripts/launch_all.sh --dry-run       # print what it would start
 #   bash scripts/launch_all.sh --only apps,bo  # a subset of the lanes
+#   bash scripts/launch_all.sh --restart       # resume: kill old sessions, start again
 #
 # Lanes: apps  bo  qbc  aces  quick  llm
 #
@@ -29,12 +30,14 @@ detect_cores() {
 
 CORES=""
 DRY=0
+RESTART=0
 ONLY="apps,bo,qbc,aces,quick,llm"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --cores)   CORES="$2"; shift 2 ;;
     --only)    ONLY="$2";  shift 2 ;;
     --dry-run) DRY=1;      shift ;;
+    --restart) RESTART=1;  shift ;;
     -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
     *) echo "unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -72,9 +75,12 @@ echo
 run() {  # run <session> <command...>
   if (( DRY )); then
     printf '  tmux_run %-26s %s\n' "$1" "${*:2}"
-  else
-    bash scripts/tmux_run.sh "$@" || true
+    return
   fi
+  # tmux_run refuses to reuse a live session name. --restart clears it first:
+  # every driver skips systems that already have a result, so this resumes.
+  (( RESTART )) && tmux kill-session -t "$1" 2>/dev/null
+  bash scripts/tmux_run.sh "$@" || true
 }
 
 if wants apps; then

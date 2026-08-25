@@ -72,6 +72,34 @@ If RAM is tight, or the box is small, run one lane at a time with `--only`.
 Nothing is lost by stopping and restarting: every driver skips systems that
 already have a result, so a killed shard picks up where it left off.
 
+### Disconnecting, and coming back
+
+The sessions live on the **server's** tmux, not in your terminal. Closing the
+SSH connection, closing the laptop, losing wifi — none of it touches a run.
+What *does* kill them is the server itself going down: a reboot, or the pod/job
+being evicted if this is a scheduler-managed box. tmux does not survive that.
+
+Coming back later:
+
+```bash
+bash scripts/status.sh      # how far each method is + which sessions still work
+```
+
+It prints `N/63` per method per benchmark, flags systems that finished with an
+error, and separates sessions that are still working from ones whose job is done
+(those stay listed on purpose — the pane drops to a shell instead of closing).
+
+To resume after anything died — a lane you killed, a server reboot, a shard that
+crashed — just launch again with `--restart`:
+
+```bash
+bash scripts/launch_all.sh --restart
+```
+
+`--restart` kills the old session names first (`tmux_run.sh` refuses to reuse a
+live one). Finished systems are skipped, errored ones are retried, so this is
+safe to run as often as you like.
+
 The rest of this file is the reference — what each session actually runs, and
 how to run any single piece by hand.
 
