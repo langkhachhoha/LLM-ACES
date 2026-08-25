@@ -64,17 +64,54 @@ per acquisition step, `bo_init_points=3`.
 
 ```bash
 bash scripts/tmux_run.sh aces-gpt-bench \
-  bash scripts/run_llm_aces.sh odebench openai/gpt-4o-mini-2024-07-18 gpt
+  env PYSR_PROCS=8 bash scripts/run_llm_aces.sh odebench openai/gpt-4o-mini-2024-07-18 gpt
 
 bash scripts/tmux_run.sh aces-gpt-base \
-  bash scripts/run_llm_aces.sh odebase  openai/gpt-4o-mini-2024-07-18 gpt
+  env PYSR_PROCS=8 bash scripts/run_llm_aces.sh odebase  openai/gpt-4o-mini-2024-07-18 gpt
 
 bash scripts/tmux_run.sh aces-qwen-bench \
-  bash scripts/run_llm_aces.sh odebench qwen/qwen3-30b-a3b-instruct-2507 qwen
+  env PYSR_PROCS=8 bash scripts/run_llm_aces.sh odebench qwen/qwen3-30b-a3b-instruct-2507 qwen
 
 bash scripts/tmux_run.sh aces-qwen-base \
-  bash scripts/run_llm_aces.sh odebase  qwen/qwen3-30b-a3b-instruct-2507 qwen
+  env PYSR_PROCS=8 bash scripts/run_llm_aces.sh odebase  qwen/qwen3-30b-a3b-instruct-2507 qwen
 ```
+
+**What one system costs.** Each system runs `1 + n_iterations x max_concepts`
+= up to **31 operator concepts**, and every concept is one complete PySR search
+*per state dimension* — 31 x dim searches, plus up to 30 sequential LLM calls.
+Measured at `pysr=20/15` on 10 training points: **7.3 s per search serial, 1.8 s
+with `PYSR_PROCS=8`** (the first search of a process adds ~11 s of Julia
+compilation). Over a whole benchmark:
+
+| | searches | PySR time, serial | PySR time, `PYSR_PROCS=8` |
+|---|---|---|---|
+| ODEBench (117 dims) | 3,627 | ~7.4 h | ~1.8 h |
+| ODEBase (154 dims) | 4,774 | ~9.7 h | ~2.4 h |
+
+On top of that sits the API: ≤30 calls per system, issued one after another, so
+a 10 s model adds ~5 min per system (~5 h per benchmark) that no amount of CPU
+will remove. Only running several systems at once hides it — `ACES_SHARD="i/n"`
+splits the benchmark round-robin over n sessions:
+
+```bash
+for i in 0 1 2 3; do
+  bash scripts/tmux_run.sh aces-qwen-base-$i \
+    env PYSR_PROCS=2 ACES_SHARD=$i/4 SKIP_EVAL=1 \
+    bash scripts/run_llm_aces.sh odebase qwen/qwen3-30b-a3b-instruct-2507 qwen
+done
+```
+
+`SKIP_EVAL=1` stops each shard from scoring a half-finished `outputs/` folder;
+score once, after the last shard exits, with the command the shard prints. The
+shards share `outputs/<bench>/llm_aces_<tag>/` — one JSON per system, nothing to
+merge. A shard that dies can just be restarted: finished systems are skipped.
+
+**`Baseline PySR run (no LLM operator restriction)` in the log is expected.**
+Before iteration 1, every system is fitted once with PySR's full operator set
+and no LLM prior at all, and its train/test NMSE is printed and stored. That is
+the control arm: it is what the LLM-guided rounds are measured against, so the
+per-system JSON can say whether the operator priors helped. It is one concept
+out of the 31, i.e. ~3% of the run — it is not a retry or a fallback.
 
 Per-system artefacts: `logs/<bench>/llm_aces_<tag>/<system>/` holds
 `active_llm_pysr_results.jsonl` (per-iteration concepts, NMSEs, acquired ICs,

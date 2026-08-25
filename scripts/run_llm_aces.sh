@@ -41,6 +41,7 @@ N_VIRTUAL="${N_VIRTUAL:-10}"
 BO_INIT_POINTS="${BO_INIT_POINTS:-3}"
 PYSR_NITER="${PYSR_NITER:-20}"
 PYSR_POPS="${PYSR_POPS:-15}"
+PYSR_PROCS="${PYSR_PROCS:-1}"
 CONCEPT_TEMPERATURE="${CONCEPT_TEMPERATURE:-0.8}"
 
 set -a; [[ -f "$ROOT/.env" ]] && source "$ROOT/.env"; set +a
@@ -61,10 +62,28 @@ while IFS= read -r line; do
   fi
   DATASETS+=("$line")
 done < <(find "$DATA_ROOT" -name "*.npz" ! -name "*_snr_*" | sort)
-echo "LLM-ACES ($MODEL) on $BENCH: ${#DATASETS[@]} systems"
-echo "  iterations=$N_ITERATIONS  concepts/round=$MAX_CONCEPTS  n_virtual=$N_VIRTUAL  pysr=$PYSR_NITER/$PYSR_POPS"
 
-for data_path in "${DATASETS[@]}"; do
+# ACES_SHARD="i/n" keeps every n-th system (round-robin), so n shells can run
+# disjoint slices of the same benchmark in parallel.
+if [[ -n "${ACES_SHARD:-}" ]]; then
+  SHARD_IDX="${ACES_SHARD%%/*}"
+  SHARD_TOTAL="${ACES_SHARD##*/}"
+  if [[ ! "$SHARD_IDX" =~ ^[0-9]+$ || ! "$SHARD_TOTAL" =~ ^[0-9]+$ ]] || (( SHARD_TOTAL == 0 )) \
+     || (( SHARD_IDX >= SHARD_TOTAL )); then
+    echo "ACES_SHARD expects i/n with 0 <= i < n (e.g. 0/4), got '$ACES_SHARD'"; exit 1
+  fi
+  SHARDED=()
+  for ((i = SHARD_IDX; i < ${#DATASETS[@]}; i += SHARD_TOTAL)); do
+    SHARDED+=("${DATASETS[$i]}")
+  done
+  DATASETS=(${SHARDED[@]+"${SHARDED[@]}"})   # ${x[@]+...}: empty array under set -u (bash 3.2)
+  echo "shard $SHARD_IDX/$SHARD_TOTAL -> ${#DATASETS[@]} systems"
+fi
+
+echo "LLM-ACES ($MODEL) on $BENCH: ${#DATASETS[@]} systems"
+echo "  iterations=$N_ITERATIONS  concepts/round=$MAX_CONCEPTS  n_virtual=$N_VIRTUAL  pysr=$PYSR_NITER/$PYSR_POPS  procs=$PYSR_PROCS"
+
+for data_path in ${DATASETS[@]+"${DATASETS[@]}"}; do
   system="$(basename "$data_path" .npz)"
   if [[ -f "$OUT_DIR/${system}.json" ]]; then
     echo "[SKIP] $system (already done)"
@@ -85,6 +104,7 @@ for data_path in "${DATASETS[@]}"; do
     --concept_temperature    "$CONCEPT_TEMPERATURE" \
     --pysr_niterations       "$PYSR_NITER" \
     --pysr_populations       "$PYSR_POPS" \
+    --pysr_procs             "$PYSR_PROCS" \
     --use_api                true \
     --api_provider           openrouter \
     --api_model              "$MODEL" \
@@ -92,6 +112,15 @@ for data_path in "${DATASETS[@]}"; do
     2>&1 | tee "$LOG_ROOT/$system/stdout.log"
   echo "[DONE] $system"
 done
+
+# SKIP_EVAL=1 leaves scoring out (use it when several shards run in parallel;
+# score once, after the last shard finishes).
+if [[ -n "${SKIP_EVAL:-}" ]]; then
+  echo "SKIP_EVAL set — not scoring. Run this when all shards are done:"
+  echo "  python -m baselines.eval_llm_aces --benchmark $BENCH --outputs_dir $OUT_DIR \\"
+  echo "    --logs_dir $LOG_ROOT --results_root $RESULTS_ROOT --method_name $METHOD --model $MODEL"
+  exit 0
+fi
 
 echo "Scoring LLM-ACES outputs with the shared evaluator..."
 python -m baselines.eval_llm_aces \

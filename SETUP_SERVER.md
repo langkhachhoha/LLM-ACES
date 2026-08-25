@@ -430,6 +430,24 @@ live subprocess log, so `tail -f results/<bench>/<method>/run.log` always shows
 movement. `--pysr_procs 8` (Julia threads) cuts BO/QBC substantially, and
 `--shard i/n` splits any sweep over several tmux sessions round-robin.
 
+**LLM-ACES itself is the same shape, only bigger.** Every system runs
+`1 + n_iterations x max_concepts` = up to 31 operator concepts, and each concept
+is one full PySR search *per state dimension* -- 31 x dim searches, on top of up
+to 30 sequential LLM calls. Measured at `pysr=20/15` on 10 training points:
+7.3 s per search serial, 1.8 s with 8 Julia threads, so a whole benchmark is
+~7-10 h of PySR single-threaded and ~2 h at `PYSR_PROCS=8`. `fit_pysr_concept`
+used to hardcode `parallelism="serial"`, which made `--pysr_procs` a no-op;
+it now honours it (`procs > 1` -> `multithreading`, `procs == 1` keeps the
+deterministic serial search the paper numbers were produced with). The old
+`--fit_pause_seconds 5.0` default also slept 31 x 5 s per system -- ~2.7 h per
+benchmark of doing nothing -- and is now `0.0`. The API calls are network-serial
+and CPU cannot help them; `ACES_SHARD=i/n` (see RUN_TMUX.md §1) overlaps them by
+running several systems at once.
+
+The `Baseline PySR run (no LLM operator restriction)` block printed for every
+system is deliberate: it fits PySR once with the full operator set and no LLM
+prior, as the control the LLM-guided rounds are compared against.
+
 **Console noise.** Third-party search loops lambdify every candidate equation
 and evaluate it without an `np.errstate` guard, so a normal LLM-ODE / APPS-ODE
 run used to bury its result lines under hundreds of

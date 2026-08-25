@@ -131,7 +131,7 @@ parser.add_argument("--pysr_niterations", type=int, default=40)
 parser.add_argument("--pysr_populations", type=int, default=15)
 parser.add_argument("--pysr_procs", type=int, default=1)
 parser.add_argument("--pysr_timeout_seconds", type=float, default=0.0)
-parser.add_argument("--fit_pause_seconds", type=float, default=5.0)
+parser.add_argument("--fit_pause_seconds", type=float, default=0.0)
 parser.add_argument("--output_dir", type=str, default=None)
 
 
@@ -315,6 +315,11 @@ def fit_pysr_concept(
     pysr_log: str,
 ) -> tuple[list[Callable], list[str]] | None:
     """Fit one PySR model per state dimension. Returns (callables, eq_strings) or None on failure."""
+    # procs > 1 runs the Julia search on that many threads (PySR's own default backend).
+    # procs == 1 keeps the deterministic serial search used for the paper numbers.
+    mode = "serial" if procs <= 1 else "multithreading"
+    if mode == "multithreading":
+        os.environ.setdefault("PYTHON_JULIACALL_THREADS", str(procs))
     try:
         from pysr import PySRRegressor
     except ImportError:
@@ -356,8 +361,8 @@ def fit_pysr_concept(
                 constraints=constraints,
                 verbosity=0,
                 random_state=rng_seed,
-                deterministic=True,
-                parallelism="serial",
+                deterministic=mode == "serial",
+                parallelism=mode,
                 temp_equation_file=True,
                 **extra_kwargs,
             )
