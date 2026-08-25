@@ -30,16 +30,65 @@ Prerequisites: [SETUP_SERVER.md](SETUP_SERVER.md) steps 1–5 are done, and
 
 ---
 
+## The whole run — two commands
+
+```bash
+cd ~/LLM-ACES && conda activate llm-aces
+bash scripts/launch_all.sh            # start everything, sized to this machine
+# ... hours later, when every session says 'finished ... with exit 0':
+bash scripts/score_all.sh             # scores LLM-ACES + symbolic accuracy + tables
+```
+
+`launch_all.sh` reads `nproc` and lays the machine out as sharded tmux sessions:
+APPS-ODE (the long pole) gets the most shards, BO and QBC get 2 Julia threads
+each, LLM-ACES gets 3 shards per run because it is blocked on the API more than
+on the CPU, and everything cheap shares one sequential lane. On 64 cores that is
+**~12 h for the whole reproduction**; the same work run unsharded is over a week.
+
+```bash
+bash scripts/launch_all.sh --dry-run          # print the plan, start nothing
+bash scripts/launch_all.sh --cores 32         # override the detected core count
+bash scripts/launch_all.sh --only apps,bo     # one lane at a time (small boxes)
+```
+
+| lane | sessions at 64 cores | cores | expected |
+|---|---|---|---|
+| `apps` — APPS-ODE | 16 (8 per benchmark) | 16 | ~9 h |
+| `bo` — Bayesian optimization | 8 (4 per benchmark) | 16 | ~7 h ODEBench, ~9 h ODEBase |
+| `qbc` — query-by-committee | 8 | 16 | ~7 h / ~9 h |
+| `aces` — LLM-ACES x 4 runs | 12 | 12 | ~4-5 h per run |
+| `quick` — SINDy, ODEFormer, E2E, PySR | 1 | 8 | ~6 h |
+| `llm` — LLM-only, LLM-ODE | 2 | ~0 | API-bound |
+
+That is 68 nominal on 64 cores, deliberately: the `aces` and `llm` sessions
+spend most of their wall time waiting on the network, so real load sits near 60.
+Check RAM first — ~45 Julia+Python processes at ~1.5 GB each want 64 GB+:
+
+```bash
+free -g
+```
+
+If RAM is tight, or the box is small, run one lane at a time with `--only`.
+Nothing is lost by stopping and restarting: every driver skips systems that
+already have a result, so a killed shard picks up where it left off.
+
+The rest of this file is the reference — what each session actually runs, and
+how to run any single piece by hand.
+
+---
+
 ## 0. Session map
+
+These are the names `launch_all.sh` uses (`_<i>` is the shard index).
 
 | session | what runs in it |
 |---|---|
-| `aces-gpt-bench` / `aces-gpt-base` | LLM-ACES, GPT-4o-mini |
-| `aces-qwen-bench` / `aces-qwen-base` | LLM-ACES, Qwen3 |
-| `sindy` `pysr` `operon` | passive symbolic regression |
-| `odeformer` `e2e` | transformer baselines |
+| `aces_gpt_<bench>_<i>` | LLM-ACES, GPT-4o-mini |
+| `aces_qwen_<bench>_<i>` | LLM-ACES, Qwen3 |
+| `bo_<bench>_<i>` `qbc_<bench>_<i>` `appsode_<bench>_<i>` | active symbolic discovery |
+| `quick` | SINDy -> ODEFormer -> E2E -> PySR, sequentially |
 | `llmonly` `llmode` | LLM-guided discovery |
-| `bo_odebench` `bo_odebase` `qbc_odebench` `qbc_odebase` `appsode_odebench` `appsode_odebase` | active symbolic discovery (one session per benchmark) |
+| `operon` | Operon (optional; needs the pyoperon build) |
 | `score` | symbolic accuracy + final tables |
 
 Useful at any time:
@@ -271,6 +320,9 @@ the acquisition trajectory can be replotted later without re-running anything.
 ## 5. Scoring and tables
 
 Run once the work sessions have printed `finished ... with exit 0`.
+`bash scripts/score_all.sh` does all of it — the four LLM-ACES runs (whose
+shards were launched with `SKIP_EVAL=1`, so nothing has scored them yet), then
+symbolic accuracy, then the tables. The pieces, if you want them separately:
 
 ```bash
 bash scripts/tmux_run.sh score bash -c '
@@ -296,6 +348,9 @@ these fits see 10-110 points). So spend the machine on shards and give each one
 policy-gradient loop: shard it, do not thread it.
 
 ### On a 64-core box — everything at once, ~12 h
+
+`bash scripts/launch_all.sh` does exactly the following; run the block by hand
+only if you want to change the split.
 
 ```bash
 # --- APPS-ODE: the long pole (~70 min/system, 122 systems). 16 shards.
@@ -382,8 +437,8 @@ then §5.
 
 ### On an 8-core box
 
-Run one lane at a time, longest first: APPS-ODE (4 shards), then BO, then QBC,
-then the two LLM-ACES models, then the quick lane. Rough wall-clock for both
+Run one lane at a time, longest first — `launch_all.sh --only apps`, then
+`--only bo`, `--only qbc`, `--only aces`, `--only quick,llm`. Rough wall-clock for both
 benchmarks (122 systems) at 8 cores total:
 
 | method | time |
