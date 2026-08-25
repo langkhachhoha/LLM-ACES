@@ -8,7 +8,7 @@
 #   bash scripts/launch_all.sh --only apps,bo  # a subset of the lanes
 #   bash scripts/launch_all.sh --restart       # resume: kill old sessions, start again
 #
-# Lanes: apps  bo  qbc  aces  quick  llm
+# Lanes: apps  bo  qbc  aces  pysr  quick  llm
 #
 # Everything is resumable: a finished system is skipped on the next run, so a
 # lane that dies (or that you kill) can simply be launched again.
@@ -31,7 +31,7 @@ detect_cores() {
 CORES=""
 DRY=0
 RESTART=0
-ONLY="apps,bo,qbc,aces,quick,llm"
+ONLY="apps,bo,qbc,aces,pysr,quick,llm"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --cores)   CORES="$2"; shift 2 ;;
@@ -55,21 +55,36 @@ wants() { [[ ",$ONLY," == *",$1,"* ]]; }
 scale() {  # scale <value-at-64-cores> -> at least 1
   awk -v v="$1" -v c="$CORES" 'BEGIN { n = int(v * c / 64 + 0.5); print (n < 1 ? 1 : n) }'
 }
-APPS_SHARDS="$(scale 8)"    # per benchmark, 1 core each
-ACT_SHARDS="$(scale 4)"     # BO / QBC, per benchmark
-ACT_THREADS=2
-ACES_SHARDS="$(scale 3)"    # per LLM-ACES run (4 runs)
-QUICK_THREADS="$(scale 8)"
+# Every one of these can be overridden from the environment, which is how you
+# give a single lane the whole machine (see RUN_TMUX.md, "four groups").
+APPS_SHARDS="${APPS_SHARDS:-$(scale 8)}"      # per benchmark, 1 core each
+ACT_SHARDS="${ACT_SHARDS:-$(scale 4)}"        # BO / QBC, per benchmark
+ACT_THREADS="${ACT_THREADS:-2}"
+ACES_SHARDS="${ACES_SHARDS:-$(scale 3)}"      # per LLM-ACES run (4 runs)
+ACES_THREADS="${ACES_THREADS:-1}"
+PYSR_SHARDS="${PYSR_SHARDS:-$(scale 2)}"      # passive PySR, per benchmark
+PYSR_THREADS="${PYSR_THREADS:-2}"
+QUICK_SHARDS="${QUICK_SHARDS:-1}"             # ODEFormer / E2E, per benchmark
+QUICK_THREADS="${QUICK_THREADS:-2}"           # torch threads per shard
 
-BUDGET=$(( APPS_SHARDS * 2 + ACT_SHARDS * ACT_THREADS * 4 + ACES_SHARDS * 4 + QUICK_THREADS ))
+declare -i BUDGET=0
+wants apps && BUDGET+=$(( APPS_SHARDS * 2 ))
+wants bo   && BUDGET+=$(( ACT_SHARDS * ACT_THREADS * 2 ))
+wants qbc  && BUDGET+=$(( ACT_SHARDS * ACT_THREADS * 2 ))
+wants aces && BUDGET+=$(( ACES_SHARDS * ACES_THREADS * 4 ))
+wants pysr && BUDGET+=$(( PYSR_SHARDS * PYSR_THREADS * 2 ))
+wants quick && BUDGET+=$(( QUICK_SHARDS * QUICK_THREADS * 4 ))
 
 echo "LLM-ACES full run — $CORES cores"
-echo "  APPS-ODE   : $APPS_SHARDS shards x 2 benchmarks x 1 core"
-echo "  BO / QBC   : $ACT_SHARDS shards x 2 benchmarks x 2 methods x $ACT_THREADS threads"
-echo "  LLM-ACES   : $ACES_SHARDS shards x 4 runs x 1 thread (mostly blocked on the API)"
-echo "  quick lane : 1 session, PySR on $QUICK_THREADS threads"
 echo "  lanes      : $ONLY"
-echo "  nominal load: $BUDGET cores (the LLM lanes idle on the network, so real load is lower)"
+wants apps  && echo "  apps       : $APPS_SHARDS shards x 2 benchmarks x 1 core"
+wants bo    && echo "  bo         : $ACT_SHARDS shards x 2 benchmarks x $ACT_THREADS threads"
+wants qbc   && echo "  qbc        : $ACT_SHARDS shards x 2 benchmarks x $ACT_THREADS threads"
+wants aces  && echo "  aces       : $ACES_SHARDS shards x 4 runs x $ACES_THREADS threads (also blocked on the API)"
+wants pysr  && echo "  pysr       : $PYSR_SHARDS shards x 2 benchmarks x $PYSR_THREADS threads"
+wants quick && echo "  quick      : SINDy + ODEFormer/E2E on $QUICK_SHARDS shards x 2 benchmarks x $QUICK_THREADS torch threads"
+wants llm   && echo "  llm        : LLM-only, LLM-ODE — one session each"
+echo "  nominal load: $BUDGET cores of $CORES; the LLM lanes idle on the network"
 echo
 
 run() {  # run <session> <command...>
@@ -109,21 +124,41 @@ if wants aces; then
     for b in odebench odebase; do
       for ((i = 0; i < ACES_SHARDS; i++)); do
         run "aces_${tag}_${b}_$i" \
-          env PYSR_PROCS=1 "ACES_SHARD=$i/$ACES_SHARDS" SKIP_EVAL=1 \
+          env "PYSR_PROCS=$ACES_THREADS" "ACES_SHARD=$i/$ACES_SHARDS" SKIP_EVAL=1 \
           bash scripts/run_llm_aces.sh "$b" "$model" "$tag"
       done
     done
   done
 fi
 
+if wants pysr; then
+  echo "-- PySR, passive (paper Table 10 budget: 100 iterations, 20 populations, 1000 cycles)"
+  for b in odebench odebase; do
+    for ((i = 0; i < PYSR_SHARDS; i++)); do
+      run "pysr_${b}_$i" bash run_baseline.sh pysr "$b" \
+        --pysr_procs "$PYSR_THREADS" --shard "$i/$PYSR_SHARDS"
+    done
+  done
+fi
+
 if wants quick; then
-  echo "-- quick lane (SINDy, ODEFormer, E2E, PySR — sequential, skips what is done)"
-  run quick bash -c "
-    bash run_baseline.sh sindy     odebench && bash run_baseline.sh sindy     odebase &&
-    bash run_baseline.sh odeformer odebench && bash run_baseline.sh odeformer odebase &&
-    bash run_baseline.sh e2e       odebench && bash run_baseline.sh e2e       odebase &&
-    bash run_baseline.sh pysr      odebench --pysr_procs $QUICK_THREADS &&
-    bash run_baseline.sh pysr      odebase  --pysr_procs $QUICK_THREADS"
+  echo "-- quick lane (SINDy ~4 min, then the two transformer baselines)"
+  run sindy bash -c "
+    bash run_baseline.sh sindy odebench && bash run_baseline.sh sindy odebase"
+  for m in odeformer e2e; do
+    for b in odebench odebase; do
+      if (( QUICK_SHARDS <= 1 )); then
+        run "${m}_${b}" env "OMP_NUM_THREADS=$QUICK_THREADS" "MKL_NUM_THREADS=$QUICK_THREADS" \
+          bash run_baseline.sh "$m" "$b"
+      else
+        for ((i = 0; i < QUICK_SHARDS; i++)); do
+          # torch would otherwise grab every core in every shard
+          run "${m}_${b}_$i" env "OMP_NUM_THREADS=$QUICK_THREADS" "MKL_NUM_THREADS=$QUICK_THREADS" \
+            bash run_baseline.sh "$m" "$b" --shard "$i/$QUICK_SHARDS"
+        done
+      fi
+    done
+  done
 fi
 
 if wants llm; then

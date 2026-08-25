@@ -72,6 +72,49 @@ If RAM is tight, or the box is small, run one lane at a time with `--only`.
 Nothing is lost by stopping and restarting: every driver skips systems that
 already have a result, so a killed shard picks up where it left off.
 
+### Or: four groups, one at a time
+
+Same total work, ~13 h instead of ~12 h, but each group gets the **whole**
+machine and you only have one kind of failure to look at. Run them in this
+order; every group is finished when `scripts/status.sh` shows no session still
+working.
+
+```bash
+# 1. Passive + transformers — SINDy, PySR, ODEFormer, E2E          (~1.5 h)
+PYSR_SHARDS=8 QUICK_SHARDS=4 bash scripts/launch_all.sh --only pysr,quick
+
+# 2. LLM-guided — LLM-ACES x4, LLM-only, LLM-ODE                   (~3 h)
+ACES_SHARDS=6 ACES_THREADS=2 bash scripts/launch_all.sh --only aces,llm
+
+# 3. Active symbolic discovery — BO + QBC                          (~5 h)
+ACT_SHARDS=8 ACT_THREADS=2 bash scripts/launch_all.sh --only bo,qbc
+
+# 4. APPS-ODE — the long pole                                      (~3.5 h)
+APPS_SHARDS=24 bash scripts/launch_all.sh --only apps
+
+# then, once
+bash scripts/score_all.sh
+```
+
+Each of those fills ~64 cores. What the knobs mean:
+
+| variable | lane | what it does |
+|---|---|---|
+| `PYSR_SHARDS` / `PYSR_THREADS` | `pysr` | shards per benchmark / Julia threads per shard |
+| `QUICK_SHARDS` / `QUICK_THREADS` | `quick` | ODEFormer + E2E shards / torch threads (torch would otherwise take every core in every shard) |
+| `ACES_SHARDS` / `ACES_THREADS` | `aces` | shards per LLM-ACES run (4 runs) / Julia threads |
+| `ACT_SHARDS` / `ACT_THREADS` | `bo`, `qbc` | shards per benchmark / Julia threads |
+| `APPS_SHARDS` | `apps` | shards per benchmark; APPS-ODE is a serial loop, so shards are the only lever |
+
+Group 1 first is deliberate: SINDy lands in four minutes and PySR exercises the
+Julia stack, so a broken environment shows up in minutes instead of after a
+night of APPS-ODE. Group 2 is next because API quota problems are also better
+found early — it is the only group whose cost is not CPU.
+
+Sizes to adjust if the box disagrees: `APPS_SHARDS=24` means 48 concurrent
+Python+torch processes (~70 GB); drop to 16 if `free -g` is tight. `ACES_SHARDS=6`
+means 24 concurrent OpenRouter conversations; drop to 3 on 429s.
+
 ### Disconnecting, and coming back
 
 The sessions live on the **server's** tmux, not in your terminal. Closing the
