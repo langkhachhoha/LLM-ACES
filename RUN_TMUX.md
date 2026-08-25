@@ -288,50 +288,116 @@ tmux attach -t score
 
 ## 6. Recommended launch order
 
-The API-bound and CPU-bound jobs do not compete, so start one of each first.
+**Shard first, thread second.** Splitting a sweep over n sessions is linear —
+n shards do n times the work. Threads are not: 8 Julia threads made one PySR
+search 4x faster, not 8x (populations, not data, is what gets parallelised, and
+these fits see 10-110 points). So spend the machine on shards and give each one
+1-2 threads. The exception is APPS-ODE, whose per-system cost is a serial
+policy-gradient loop: shard it, do not thread it.
+
+### On a 64-core box — everything at once, ~12 h
 
 ```bash
-# Wave 1 — start together
-bash scripts/tmux_run.sh aces-gpt-bench bash scripts/run_llm_aces.sh odebench openai/gpt-4o-mini-2024-07-18 gpt
-bash scripts/tmux_run.sh pysr  bash -c 'bash run_baseline.sh pysr odebench --pysr_procs 8'
-bash scripts/tmux_run.sh sindy bash -c 'bash run_baseline.sh sindy odebench && bash run_baseline.sh sindy odebase'
+# --- APPS-ODE: the long pole (~70 min/system, 122 systems). 16 shards.
+for i in 0 1 2 3 4 5 6 7; do
+  bash scripts/tmux_run.sh appsode_odebench_$i \
+    bash run_baseline.sh apps_ode odebench --n_cores 1 --shard $i/8
+  bash scripts/tmux_run.sh appsode_odebase_$i \
+    bash run_baseline.sh apps_ode odebase  --n_cores 1 --shard $i/8
+done
 
-# Wave 2 — once wave 1's API job finishes
-bash scripts/tmux_run.sh aces-qwen-bench bash scripts/run_llm_aces.sh odebench qwen/qwen3-30b-a3b-instruct-2507 qwen
-bash scripts/tmux_run.sh llmonly bash -c 'MODEL=openai/gpt-4o-mini-2024-07-18 bash run_baseline.sh llm_only odebench'
+# --- BO and QBC: 4 shards x 2 threads per benchmark
+for m in bo qbc; do
+  for b in odebench odebase; do
+    for i in 0 1 2 3; do
+      bash scripts/tmux_run.sh ${m}_${b}_$i \
+        bash run_baseline.sh $m $b --pysr_procs 2 --shard $i/4
+    done
+  done
+done
 
-# Wave 3
-bash scripts/tmux_run.sh aces-gpt-base  bash scripts/run_llm_aces.sh odebase openai/gpt-4o-mini-2024-07-18 gpt
-bash scripts/tmux_run.sh aces-qwen-base bash scripts/run_llm_aces.sh odebase qwen/qwen3-30b-a3b-instruct-2507 qwen
-bash scripts/tmux_run.sh bo_odebench  bash run_baseline.sh bo odebench --pysr_procs 8
-bash scripts/tmux_run.sh qbc_odebench bash run_baseline.sh qbc odebench --pysr_procs 8
+# --- LLM-ACES: 3 shards per run. These block on the API more than on the CPU.
+for tag_model in "gpt openai/gpt-4o-mini-2024-07-18" "qwen qwen/qwen3-30b-a3b-instruct-2507"; do
+  set -- $tag_model
+  for b in odebench odebase; do
+    for i in 0 1 2; do
+      bash scripts/tmux_run.sh aces-$1-$b-$i \
+        env PYSR_PROCS=1 ACES_SHARD=$i/3 SKIP_EVAL=1 \
+        bash scripts/run_llm_aces.sh $b "$2" "$1"
+    done
+  done
+done
 
-# Wave 4
-bash scripts/tmux_run.sh odeformer bash -c 'bash run_baseline.sh odeformer odebench && bash run_baseline.sh odeformer odebase'
-bash scripts/tmux_run.sh e2e       bash -c 'bash run_baseline.sh e2e odebench && bash run_baseline.sh e2e odebase'
-bash scripts/tmux_run.sh appsode_odebench bash run_baseline.sh apps_ode odebench --n_cores 8
+# --- Everything cheap, one lane, sequential (skip what is already done)
+bash scripts/tmux_run.sh quick bash -c '
+  bash run_baseline.sh sindy     odebench && bash run_baseline.sh sindy     odebase &&
+  bash run_baseline.sh odeformer odebench && bash run_baseline.sh odeformer odebase &&
+  bash run_baseline.sh e2e       odebench && bash run_baseline.sh e2e       odebase &&
+  bash run_baseline.sh pysr      odebench --pysr_procs 8 &&
+  bash run_baseline.sh pysr      odebase  --pysr_procs 8'
 
-# Wave 5 — the ODEBase halves of the active methods (they are the longest jobs)
-bash scripts/tmux_run.sh bo_odebase      bash run_baseline.sh bo odebase --pysr_procs 8
-bash scripts/tmux_run.sh qbc_odebase     bash run_baseline.sh qbc odebase --pysr_procs 8
-bash scripts/tmux_run.sh appsode_odebase bash run_baseline.sh apps_ode odebase --n_cores 8
+bash scripts/tmux_run.sh llmonly bash -c '
+  MODEL=openai/gpt-4o-mini-2024-07-18 bash run_baseline.sh llm_only odebench &&
+  MODEL=openai/gpt-4o-mini-2024-07-18 bash run_baseline.sh llm_only odebase'
+
+bash scripts/tmux_run.sh llmode bash -c '
+  bash run_baseline.sh llm_ode odebench && bash run_baseline.sh llm_ode odebase'
 ```
 
-Rough wall-clock on an 8-core machine (both benchmarks, 122 systems total).
-The two active methods dominate everything else, so shard them from the start:
+| lane | sessions | cores each | cores | expected |
+|---|---|---|---|---|
+| APPS-ODE | 16 | 1 | 16 | ~9 h |
+| BO | 8 | 2 | 16 | ~7 h ODEBench, ~9 h ODEBase |
+| QBC | 8 | 2 | 16 | ~7 h / ~9 h |
+| LLM-ACES | 12 | 1 | 12 | ~4-5 h per run |
+| quick lane (SINDy, ODEFormer, E2E, PySR) | 1 | 8 | 8 | ~6 h |
+| LLM-only, LLM-ODE | 2 | ~0 | - | API-bound |
+
+That is 68 nominal on 64 cores, which is fine: the LLM-ACES and LLM-only/LLM-ODE
+sessions spend most of their wall time blocked on the network, so real load sits
+around 60. Two things to check before launching:
+
+```bash
+free -g     # ~45 Julia+Python processes, budget ~1.5 GB each -> want 64 GB+
+nproc
+```
+
+If RAM is tight, halve the APPS-ODE and BO/QBC shard counts and run them in two
+passes — restarting a shard is free, finished systems are skipped. If OpenRouter
+starts returning 429s, drop LLM-ACES to 2 shards per run.
+
+Score once, at the end (the LLM-ACES shards ran with `SKIP_EVAL=1`):
+
+```bash
+for b in odebench odebase; do
+  for t in gpt qwen; do
+    python -m baselines.eval_llm_aces --benchmark $b \
+      --outputs_dir outputs/$b/llm_aces_$t --logs_dir logs/$b/llm_aces_$t \
+      --results_root results --method_name llm_aces_$t --model $t
+  done
+done
+```
+
+then §5.
+
+### On an 8-core box
+
+Run one lane at a time, longest first: APPS-ODE (4 shards), then BO, then QBC,
+then the two LLM-ACES models, then the quick lane. Rough wall-clock for both
+benchmarks (122 systems) at 8 cores total:
 
 | method | time |
 |---|---|
 | SINDy | ~4 min (measured) |
-| ODEFormer | 1–2 h |
-| E2E | 2–4 h |
-| LLM-only | 3–6 h |
+| ODEFormer | 1-2 h |
+| E2E | 2-4 h |
+| LLM-only | 3-6 h |
 | BO / QBC | ~49 h (ODEBench) + ~64 h (ODEBase) each at `--pysr_procs 1`; shard them |
-| LLM-ACES (per model) | 6–12 h |
-| LLM-ODE | 6–12 h |
-| Operon | 4–8 h |
-| PySR (full Table 10 budget) | 12–20 h |
-| APPS-ODE | ~70 min/system — split across sessions (see above) |
+| LLM-ACES (per model) | ~7 h ODEBench + ~10 h ODEBase of PySR at `PYSR_PROCS=1`, plus ~5 h of API |
+| LLM-ODE | 6-12 h |
+| Operon | 4-8 h |
+| PySR (full Table 10 budget) | 12-20 h |
+| APPS-ODE | ~70 min/system - split across sessions (see above) |
 
 ---
 
