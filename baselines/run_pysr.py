@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import time
 
 import numpy as np
 
@@ -114,6 +115,11 @@ def fit_pysr_system(u: np.ndarray, du: np.ndarray, dim: int, args, seed: int,
     """Fit one PySR model per dimension and return the chosen RHS strings."""
     eqs = []
     for d in range(dim):
+        if logger:
+            logger.info(f"      [PySR] fitting dx{d}/dt (of {dim}) — "
+                        f"{args.pysr_niterations} iterations x {args.pysr_populations} "
+                        f"populations x {args.pysr_ncycles} cycles, no output until it lands")
+        t_fit = time.time()
         model = build_regressor(
             niterations=args.pysr_niterations, populations=args.pysr_populations,
             population_size=args.pysr_population_size, ncycles=args.pysr_ncycles,
@@ -126,7 +132,7 @@ def fit_pysr_system(u: np.ndarray, du: np.ndarray, dim: int, args, seed: int,
         eq = pareto_best_equation(model, u, du[:, d])
         eqs.append(eq)
         if logger:
-            logger.info(f"      [PySR] dx{d}/dt = {eq}")
+            logger.info(f"      [PySR] dx{d}/dt = {eq}   ({time.time() - t_fit:.0f}s)")
     return eqs
 
 
